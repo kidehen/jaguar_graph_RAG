@@ -2,7 +2,12 @@
 
 ## Overview
 
-This document describes the architecture of the **Graph RAG (Retrieval-Augmented Generation)** application that combines **OpenAI GPT** with **GraphDB knowledge graphs** for intelligent jaguar conservation queries. The application demonstrates how to build a conversational AI using **Microsoft Agent Framework DevUI** that can query structured data using SPARQL and provide natural language responses.
+This document describes the architecture of the **Graph RAG (Retrieval-Augmented Generation)** application that combines **OpenAI GPT** with **GraphDB knowledge graphs** for intelligent jaguar conservation queries. The application demonstrates:
+
+1. **Conversational AI** using **Microsoft Agent Framework DevUI** that queries structured data using SPARQL
+2. **Ontology-Aware Knowledge Extraction** that transforms unstructured text into RDF knowledge graphs
+
+This is a **true semantic Graph RAG** implementation using formal ontologies (RDFS/OWL), not just labeled property graphs (LPG).
 
 ## Graph RAG High-Level Architecture
 
@@ -59,6 +64,62 @@ This document describes the architecture of the **Graph RAG (Retrieval-Augmented
 └─────────────────────────────────────────────────────────────┘
 ```
 
+## Knowledge Extraction Architecture
+
+### Ontology-Aware Data Mining
+
+In addition to querying existing knowledge graphs, this system provides **ontology-driven knowledge extraction** from unstructured text:
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│           Ontology-Aware Knowledge Extraction               │
+│                                                             │
+│  ┌──────────────┐      ┌──────────────┐                    │
+│  │   Jaguar     │      │   Jaguar     │                    │
+│  │  Ontology    │      │   Corpus     │                    │
+│  │   (.ttl)     │      │   (.txt)     │                    │
+│  └──────┬───────┘      └──────┬───────┘                    │
+│         │                     │                            │
+│         └──────────┬──────────┘                            │
+│                    │                                        │
+│         ┌──────────▼──────────┐                            │
+│         │      GPT-5          │                            │
+│         │  Semantic Analysis  │                            │
+│         │  - Domain Context   │                            │
+│         │  - Disambiguation   │                            │
+│         │  - Relationship     │                            │
+│         │    Inference        │                            │
+│         └──────────┬──────────┘                            │
+│                    │                                        │
+│         ┌──────────▼──────────┐                            │
+│         │   RDF Turtle        │                            │
+│         │   Generation        │                            │
+│         │  - Aligned to       │                            │
+│         │    Ontology         │                            │
+│         │  - Valid Structure  │                            │
+│         └──────────┬──────────┘                            │
+│                    │                                        │
+│         ┌──────────▼──────────┐                            │
+│         │     GraphDB         │                            │
+│         │     Import          │                            │
+│         │  (Text Snippet)     │                            │
+│         └─────────────────────┘                            │
+└─────────────────────────────────────────────────────────────┘
+```
+
+**Key Innovation**: The LLM uses the **formal ontology** to understand domain semantics, enabling it to:
+- **Disambiguate entities** (wildlife jaguars vs. cars vs. guitars)
+- **Extract only relevant information** aligned with the ontology
+- **Infer relationships** between entities based on context
+- **Generate valid RDF** that conforms to the ontology structure
+
+**Why This Requires RDF/Ontologies**:
+- LPG databases lack formal semantic definitions
+- No standardized class hierarchies (RDFS/OWL)
+- No property domain/range constraints
+- No reasoning or inference capabilities
+- LLMs need semantic structure, not just node/edge labels
+
 ## Graph RAG Component Descriptions
 
 ### Microsoft Agent Framework DevUI
@@ -74,6 +135,14 @@ This document describes the architecture of the **Graph RAG (Retrieval-Augmented
 - **OpenAI Client**: GPT-4 integration with function calling
 - **Thread Management**: Conversation context preservation
 
+### Knowledge Extraction Tools
+- **text2knowledge.ipynb**: Jupyter notebook for ontology-aware extraction
+  - Loads formal ontology (jaguar_ontology.ttl)
+  - Processes unstructured text corpus
+  - Uses GPT-5 for semantic entity extraction
+  - Generates RDF Turtle aligned with ontology
+  - Demonstrates concept understanding vs. pattern matching
+
 ### Graph RAG Tools
 - **GraphDB Tool**: Core Graph RAG component
   - Executes SPARQL queries against knowledge graph
@@ -81,7 +150,7 @@ This document describes the architecture of the **Graph RAG (Retrieval-Augmented
   - Processes and formats query results
 
 ### External Systems
-- **OpenAI API**: GPT-4 model for natural language processing
+- **OpenAI API**: GPT-4/GPT-5 for natural language processing and semantic extraction
 - **GraphDB**: RDF triple store with jaguar conservation ontology
 
 ## Graph RAG Data Flow
@@ -231,14 +300,15 @@ settings = OpenAISettings(
 ```
 graph_RAG/
 ├── main.py                  # DevUI entry point
+├── text2knowledge.ipynb     # Ontology-aware knowledge extraction notebook
 ├── src/
 │   └── agents/
 │       ├── jaguar_query_agent.py  # Agent creation with DevUI integration
 │       └── jaguar_tool.py         # GraphDB tool implementation
 ├── data/
-│   ├── jaguar_ontology.ttl        # Basic jaguar ontology
-│   ├── jaguar_ontology_rich.ttl    # Extended ontology with more classes
-│   └── jaguars.ttl               # Jaguar instance data
+│   ├── jaguar_ontology.ttl       # Jaguar conservation ontology (RDFS/OWL)
+│   ├── jaguars.ttl               # Jaguar instance data (RDF)
+│   └── jaguar_corpus.txt         # Mixed-content text corpus for extraction
 ├── docs/
 │   ├── agent_design.md      # Agent design documentation
 │   └── architecture.md      # Architecture documentation
@@ -250,14 +320,26 @@ graph_RAG/
 ## Graph RAG Benefits
 
 ### Technical Benefits
+- **True Semantic Graph RAG**: Uses formal ontologies (RDFS/OWL), not just LPG
 - **Hybrid Intelligence**: Combines LLM reasoning with structured data
+- **Ontology-Driven Extraction**: Intelligent knowledge mining from unstructured text
 - **Real-time Queries**: Live data from knowledge graphs
 - **Context Awareness**: Maintains conversation context
+- **Standards-Based**: W3C standards (RDF, SPARQL, RDFS, OWL)
 - **Extensible**: Easy to add new tools and capabilities
+
+### Semantic Advantages Over LPG
+- **Formal Ontologies**: Machine-readable domain semantics
+- **Class Hierarchies**: RDFS/OWL inheritance and reasoning
+- **Property Definitions**: Domain/range constraints
+- **Semantic Interoperability**: Universal URIs and namespaces
+- **Reasoning Capabilities**: Built-in inference engines
+- **LLM-Friendly**: Rich semantic structure for AI understanding
 
 ### Conservation Benefits
 - **Data-Driven Insights**: Access to structured conservation data
 - **Natural Language Interface**: Easy querying of complex data
-- **Educational Tool**: Demonstrates Graph RAG capabilities
+- **Knowledge Mining**: Extract conservation data from research papers
+- **Educational Tool**: Demonstrates semantic Graph RAG capabilities
 - **Research Support**: Facilitates conservation research queries
 

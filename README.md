@@ -98,13 +98,51 @@ docker start graphdb-instance
 
 ```
 
-### 6. Load Jaguar Data
+### 6. Load Jaguar Data into GraphDB
+
+You have two options for loading jaguar data into your GraphDB repository:
+
+#### Option A: Import Pre-Generated Data Files (Quick Start)
 
 1. Access GraphDB Workbench at `http://localhost:7200`
 2. Create a new repository named `jaguars`
 3. Import the data files:
-   - `data/jaguar_ontology.ttl` (or `data/jaguar_ontology_rich.ttl`)
+   - `data/jaguar_ontology.ttl`
    - `data/jaguars.ttl`
+
+This is the fastest way to get started with a pre-populated database of jaguar conservation data.
+
+#### Option B: Mine Data from Text Using AI (Advanced)
+
+Use the included Jupyter notebook to extract structured data from unstructured text using **ontology-aware AI extraction**:
+
+1. Open the notebook:
+   ```bash
+   jupyter notebook text2knowledge.ipynb
+   ```
+
+2. Run the cells to:
+   - Load the jaguar ontology (`data/jaguar_ontology.ttl`)
+   - Load the text corpus (`data/jaguar_corpus.txt`)
+   - Use **GPT-5** to intelligently extract entities and relationships
+
+**What makes this special:**
+- The corpus contains mixed content about different "Jaguar" entities (cars, guitars, wildlife)
+- The AI uses the **ontology structure** to understand the concept and **only extracts wildlife-related jaguars**
+- This demonstrates ontology-driven entity extraction, filtering out irrelevant information automatically
+- Processing takes approximately 2-4 minutes
+
+3. The notebook generates RDF Turtle code that aligns with your ontology
+
+4. Import the generated Turtle into GraphDB:
+   - In GraphDB Workbench, go to **Import** → **Text snippet**
+   - Paste the generated RDF Turtle code
+   - Import into your repository
+
+This approach is ideal for:
+- Mining your own jaguar-related documents
+- Understanding how LLMs can use ontologies for intelligent extraction
+- Customizing the knowledge graph with new data sources
 
 ### 7. Run the Application
 
@@ -120,14 +158,15 @@ The DevUI will automatically open in your browser at `http://localhost:8000`
 ```
 graph_RAG/
 ├── main.py                  # DevUI entry point
+├── text2knowledge.ipynb     # Jupyter notebook for mining data from text
 ├── src/
 │   └── agents/
 │       ├── jaguar_query_agent.py  # Agent creation with DevUI integration
 │       └── jaguar_tool.py         # GraphDB tool implementation
 ├── data/
-│   ├── jaguar_ontology.ttl        # Basic jaguar ontology
-│   ├── jaguar_ontology_rich.ttl    # Extended ontology with more classes
-│   └── jaguars.ttl               # Jaguar instance data
+│   ├── jaguar_ontology.ttl       # Basic jaguar ontology
+│   ├── jaguars.ttl               # Jaguar instance data
+│   └── jaguar_corpus.txt         # Text corpus for mining (cars, guitars, wildlife)
 ├── docs/
 │   ├── agent_design.md      # Agent design documentation
 │   └── architecture.md      # Architecture documentation

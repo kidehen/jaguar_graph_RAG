@@ -15,300 +15,319 @@ def query_jaguar_database(sparql_query: str) -> str:
     Args:
         sparql_query: A valid SPARQL query to execute against the jaguar GraphDB aligning with this ontology:
         
-        JAGUAR ONTOLOGY SCHEMA:
-        @prefix : <http://example.org/ontology#>.
-        @prefix ex: <http://example.org/resource/> .
+        @prefix ont: <http://example.org/ontology#>.
+        @prefix : <http://example.org/resource#>.
         @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
         @prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
         @prefix owl: <http://www.w3.org/2002/07/owl#>.
 
         #############################
-        # Refined and New Ontology Classes #
+        # Ontology Classes          #
         #############################
 
-        :Animal a owl:Class.
-        :Mammal a owl:Class ; rdfs:subClassOf :Animal.
-        :BigCat a owl:Class ; rdfs:subClassOf :Mammal.
-        :Jaguar a owl:Class ; rdfs:subClassOf :BigCat ;
+        ont:Animal a owl:Class.
+        ont:Mammal a owl:Class ; rdfs:subClassOf ont:Animal.
+        ont:BigCat a owl:Class ; rdfs:subClassOf ont:Mammal.
+        ont:Jaguar a owl:Class ; rdfs:subClassOf ont:BigCat ;
             rdfs:comment "The Panthera onca species.".
 
-        :Prey a owl:Class ; rdfs:subClassOf :Animal.
-        :Livestock a owl:Class ; rdfs:subClassOf :Prey.
-        :Herbivore a owl:Class ; rdfs:subClassOf :Prey.
-        :Mesopredator a owl:Class ; rdfs:subClassOf :Prey.
-        :Fish a owl:Class ; rdfs:subClassOf :Prey.
-        :Reptile a owl:Class ; rdfs:subClassOf :Prey.
+        ont:Prey a owl:Class ; rdfs:subClassOf ont:Animal.
+        ont:Livestock a owl:Class ; rdfs:subClassOf ont:Prey.
+        ont:Herbivore a owl:Class ; rdfs:subClassOf ont:Prey.
+        ont:Mesopredator a owl:Class ; rdfs:subClassOf ont:Prey.
+        ont:Fish a owl:Class ; rdfs:subClassOf ont:Prey.
+        ont:Reptile a owl:Class ; rdfs:subClassOf ont:Prey.
 
-        :JaguarPopulation a owl:Class ;
+        ont:JaguarPopulation a owl:Class ;
             rdfs:comment "A group or population of jaguars.".
 
-        :Habitat a owl:Class.
-        :Forest a owl:Class ; rdfs:subClassOf :Habitat.
-        :Rainforest a owl:Class ; rdfs:subClassOf :Forest.
-        :Wetland a owl:Class ; rdfs:subClassOf :Habitat.
-        :Grassland a owl:Class ; rdfs:subClassOf :Habitat.
-        :Shrubland a owl:Class ; rdfs:subClassOf :Habitat.
-        :WaterBody a owl:Class ; rdfs:subClassOf :Habitat.
+        ont:Habitat a owl:Class.
+        ont:Forest a owl:Class ; rdfs:subClassOf ont:Habitat.
+        ont:Rainforest a owl:Class ; rdfs:subClassOf ont:Forest.
+        ont:Wetland a owl:Class ; rdfs:subClassOf ont:Habitat.
+        ont:Grassland a owl:Class ; rdfs:subClassOf ont:Habitat.
+        ont:Shrubland a owl:Class ; rdfs:subClassOf ont:Habitat.
+        ont:WaterBody a owl:Class ; rdfs:subClassOf ont:Habitat.
 
-        :Location a owl:Class.
-        :Country a owl:Class ; rdfs:subClassOf :Location.
-        :State a owl:Class ; rdfs:subClassOf :Location.
-        :Region a owl:Class ; rdfs:subClassOf :Location.
-        :MountainRange a owl:Class ; rdfs:subClassOf :Location.
-        :HabitatArea a owl:Class ; rdfs:subClassOf :Location.
+        ont:Location a owl:Class.
+        ont:Country a owl:Class ; rdfs:subClassOf ont:Location.
+        ont:State a owl:Class ; rdfs:subClassOf ont:Location.
+        ont:Region a owl:Class ; rdfs:subClassOf ont:Location.
+        ont:MountainRange a owl:Class ; rdfs:subClassOf ont:Location.
+        ont:HabitatArea a owl:Class ; rdfs:subClassOf ont:Location.
 
-        :DietType a owl:Class.
-        :CarnivoreDiet a :DietType.
+        ont:DietType a owl:Class.
+        ont:CarnivoreDiet a ont:DietType.
 
-        :Observation a owl:Class ;
+        ont:Observation a owl:Class ;
             rdfs:label "Observation" ;
             rdfs:comment "An event recording the sighting of an animal.".
 
-        :Person a owl:Class ;
+        ont:Person a owl:Class ;
             rdfs:label "Person" ;
             rdfs:comment "A human observer or researcher involved in recording animal sightings.".
-        :Researcher a owl:Class ; rdfs:subClassOf :Person.
-        :Rancher a owl:Class ; rdfs:subClassOf :Person.
-        :Conservationist a owl:Class ; rdfs:subClassOf :Person.
-        :IndigenousPerson a owl:Class ; rdfs:subClassOf :Person.
-        :Tourist a owl:Class ; rdfs:subClassOf :Person.
-        :LawEnforcement a owl:Class ; rdfs:subClassOf :Person.
+        ont:Researcher a owl:Class ; rdfs:subClassOf ont:Person.
+        ont:Rancher a owl:Class ; rdfs:subClassOf ont:Person.
+        ont:Conservationist a owl:Class ; rdfs:subClassOf ont:Person.
+        ont:IndigenousPerson a owl:Class ; rdfs:subClassOf ont:Person.
+        ont:Tourist a owl:Class ; rdfs:subClassOf ont:Person.
+        ont:LawEnforcement a owl:Class ; rdfs:subClassOf ont:Person.
 
-        :ConservationOrganization a owl:Class ;
+        ont:ConservationOrganization a owl:Class ;
             rdfs:label "Conservation Organization" ;
             rdfs:comment "An organization involved in monitoring and protecting wildlife.".
-        :GovernmentAgency a owl:Class ; rdfs:subClassOf :ConservationOrganization.
-        :NGO a owl:Class ; rdfs:subClassOf :ConservationOrganization.
-        :AcademicInstitution a owl:Class ; rdfs:subClassOf :ConservationOrganization.
+        ont:GovernmentAgency a owl:Class ; rdfs:subClassOf ont:ConservationOrganization.
+        ont:NGO a owl:Class ; rdfs:subClassOf ont:ConservationOrganization.
+        ont:AcademicInstitution a owl:Class ; rdfs:subClassOf ont:ConservationOrganization.
 
-        :Threat a owl:Class.
-        :AnthropogenicThreat a owl:Class ; rdfs:subClassOf :Threat.
-        :HabitatLoss a owl:Class ; rdfs:subClassOf :AnthropogenicThreat.
-        :HabitatFragmentation a owl:Class ; rdfs:subClassOf :AnthropogenicThreat.
-        :Poaching a owl:Class ; rdfs:subClassOf :AnthropogenicThreat.
-        :IllegalWildlifeTrade a owl:Class ; rdfs:subClassOf :AnthropogenicThreat.
-        :HumanWildlifeConflict a owl:Class ; rdfs:subClassOf :AnthropogenicThreat.
-        :BorderBarrier a owl:Class ; rdfs:subClassOf :AnthropogenicThreat.
-        :EnvironmentalThreat a owl:Class ; rdfs:subClassOf :Threat.
-        :ClimateChange a owl:Class ; rdfs:subClassOf :EnvironmentalThreat.
-        :Wildfire a owl:Class ; rdfs:subClassOf :EnvironmentalThreat.
+        ont:Threat a owl:Class.
+        ont:AnthropogenicThreat a owl:Class ; rdfs:subClassOf ont:Threat.
+        ont:HabitatLoss a owl:Class ; rdfs:subClassOf ont:AnthropogenicThreat.
+        ont:HabitatFragmentation a owl:Class ; rdfs:subClassOf ont:AnthropogenicThreat.
+        ont:Poaching a owl:Class ; rdfs:subClassOf ont:AnthropogenicThreat.
+        ont:IllegalWildlifeTrade a owl:Class ; rdfs:subClassOf ont:AnthropogenicThreat.
+        ont:HumanWildlifeConflict a owl:Class ; rdfs:subClassOf ont:AnthropogenicThreat.
+        ont:BorderBarrier a owl:Class ; rdfs:subClassOf ont:AnthropogenicThreat.
+        ont:EnvironmentalThreat a owl:Class ; rdfs:subClassOf ont:Threat.
+        ont:ClimateChange a owl:Class ; rdfs:subClassOf ont:EnvironmentalThreat.
+        ont:Wildfire a owl:Class ; rdfs:subClassOf ont:EnvironmentalThreat.
 
-        :ConservationEffort a owl:Class.
-        :RecoveryPlan a owl:Class ; rdfs:subClassOf :ConservationEffort.
-        :WildlifeCorridor a owl:Class ; rdfs:subClassOf :ConservationEffort.
-        :RewildingProgram a owl:Class ; rdfs:subClassOf :ConservationEffort.
-        :CommunityEngagement a owl:Class ; rdfs:subClassOf :ConservationEffort.
-        :InternationalCooperation a owl:Class ; rdfs:subClassOf :ConservationEffort.
-        :MonitoringTechnique a owl:Class.
-        :CameraTrap a owl:Class ; rdfs:subClassOf :MonitoringTechnique.
-        :ScatDetection a owl:Class ; rdfs:subClassOf :MonitoringTechnique.
-        :GPSTracking a owl:Class ; rdfs:subClassOf :MonitoringTechnique.
+        ont:ConservationEffort a owl:Class.
+        ont:RecoveryPlan a owl:Class ; rdfs:subClassOf ont:ConservationEffort.
+        ont:WildlifeCorridor a owl:Class ; rdfs:subClassOf ont:ConservationEffort.
+        ont:RewildingProgram a owl:Class ; rdfs:subClassOf ont:ConservationEffort.
+        ont:CommunityEngagement a owl:Class ; rdfs:subClassOf ont:ConservationEffort.
+        ont:InternationalCooperation a owl:Class ; rdfs:subClassOf ont:ConservationEffort.
+        ont:MonitoringTechnique a owl:Class.
+        ont:CameraTrap a owl:Class ; rdfs:subClassOf ont:MonitoringTechnique.
+        ont:ScatDetection a owl:Class ; rdfs:subClassOf ont:MonitoringTechnique.
+        ont:GPSTracking a owl:Class ; rdfs:subClassOf ont:MonitoringTechnique.
 
-        :LegalFramework a owl:Class.
-        :Act a owl:Class ; rdfs:subClassOf :LegalFramework.
-        :Convention a owl:Class ; rdfs:subClassOf :LegalFramework.
+        ont:LegalFramework a owl:Class.
+        ont:Act a owl:Class ; rdfs:subClassOf ont:LegalFramework.
+        ont:Convention a owl:Class ; rdfs:subClassOf ont:LegalFramework.
 
-        :CulturalSignificance a owl:Class.
-        :EconomicBenefit a owl:Class.
+        ont:CulturalSignificance a owl:Class.
+        ont:EconomicBenefit a owl:Class.
 
-        :Event a owl:Class.
+        ont:Event a owl:Class. # For specific events like rescue, release, death
 
         #############################
         # Ontology Properties #
         #############################
 
-        :hasObservation a owl:ObjectProperty ;
-            rdfs:domain :Animal ;
-            rdfs:range :Observation ;
+        ont:hasObservation a owl:ObjectProperty ;
+            rdfs:domain ont:Animal ;
+            rdfs:range ont:Observation ;
             rdfs:comment "Links an animal to one of its observation events.".
 
-        :observedDate a owl:DatatypeProperty ;
-            rdfs:domain :Observation ;
+        ont:observedDate a owl:DatatypeProperty ;
+            rdfs:domain ont:Observation ;
             rdfs:range xsd:date ;
             rdfs:comment "The date on which the observation took place.".
 
-        :observedBy a owl:ObjectProperty ;
-            rdfs:domain :Observation ;
-            rdfs:range :Person ;
+        ont:observedBy a owl:ObjectProperty ;
+            rdfs:domain ont:Observation ;
+            rdfs:range ont:Person ;
             rdfs:comment "The person who recorded the observation.".
 
-        :monitoredByOrg a owl:ObjectProperty ;
-            rdfs:domain :Animal ;
-            rdfs:range :ConservationOrganization ;
+        ont:monitoredByOrg a owl:ObjectProperty ;
+            rdfs:domain ont:Animal ;
+            rdfs:range ont:ConservationOrganization ;
             rdfs:comment "Links an animal to the conservation organization that monitors it.".
 
-        :monitoredByTechnique a owl:ObjectProperty ;
-            rdfs:domain :Jaguar ;
-            rdfs:range :MonitoringTechnique ;
+        ont:monitoredByTechnique a owl:ObjectProperty ;
+            rdfs:domain ont:Jaguar ;
+            rdfs:range ont:MonitoringTechnique ;
             rdfs:comment "Indicates the technique used to monitor the jaguar.".
 
-        :locatedInCountry a owl:ObjectProperty ;
-            rdfs:domain :State ;
-            rdfs:range :Country ;
+        ont:locatedInCountry a owl:ObjectProperty ;
+            rdfs:domain ont:State ;
+            rdfs:range ont:Country ;
             rdfs:comment "Specifies the country in which a state is located.".
 
-        :locatedIn a owl:ObjectProperty ;
-            rdfs:domain :Habitat ;
-            rdfs:range :Location ;
+        ont:locatedIn a owl:ObjectProperty ;
+            rdfs:domain ont:Habitat ;
+            rdfs:range ont:Location ;
             rdfs:comment "Specifies the state or administrative region in which a habitat is located.".
 
-        :occursIn a owl:ObjectProperty ;
-            rdfs:domain :Animal ;
-            rdfs:range :Location ;
+        ont:occursIn a owl:ObjectProperty ;
+            rdfs:domain ont:Animal ;
+            rdfs:range ont:Location ;
             rdfs:comment "Indicates a state where an animal has been observed or is known to occur.".
 
-        :name a owl:DatatypeProperty ;
-            rdfs:domain :Animal ;
+        ont:name a owl:DatatypeProperty ;
+            rdfs:domain ont:Animal ;
             rdfs:range xsd:string.
 
-        :habitat a owl:ObjectProperty ;
-            rdfs:domain :Animal ;
-            rdfs:range :Habitat.
+        ont:habitat a owl:ObjectProperty ;
+            rdfs:domain ont:Animal ;
+            rdfs:range ont:Habitat.
 
-        :hasDietType a owl:ObjectProperty ;
-            rdfs:domain :Animal ;
-            rdfs:range :DietType.
+        ont:hasDietType a owl:ObjectProperty ;
+            rdfs:domain ont:Animal ;
+            rdfs:range ont:DietType.
 
-        :hasLifespan a owl:DatatypeProperty ;
-            rdfs:domain :Animal ;
+        ont:hasLifespan a owl:DatatypeProperty ;
+            rdfs:domain ont:Animal ;
             rdfs:range xsd:integer ;
             rdfs:comment "Lifespan in years.".
 
-        :scientificName a owl:DatatypeProperty ;
-            rdfs:domain :Animal ;
+        ont:scientificName a owl:DatatypeProperty ;
+            rdfs:domain ont:Animal ;
             rdfs:range xsd:string.
 
-        :hasGender a owl:DatatypeProperty ;
-            rdfs:domain :Jaguar ;
+        ont:hasGender a owl:DatatypeProperty ;
+            rdfs:domain ont:Jaguar ;
             rdfs:range xsd:string ;
             rdfs:comment "Gender of the jaguar (e.g., Male, Female).".
 
-        :hasIdentificationMark a owl:DatatypeProperty ;
-            rdfs:domain :Jaguar ;
+        ont:hasIdentificationMark a owl:DatatypeProperty ;
+            rdfs:domain ont:Jaguar ;
             rdfs:range xsd:string ;
             rdfs:comment "Unique spot pattern or other distinguishing mark.".
 
-        :hasMonitoringStartDate a owl:DatatypeProperty ;
-            rdfs:domain :Jaguar ;
+        ont:hasMonitoringStartDate a owl:DatatypeProperty ;
+            rdfs:domain ont:Jaguar ;
             rdfs:range xsd:date ;
             rdfs:comment "Date when monitoring of the individual jaguar began.".
 
-        :hasLastSightingDate a owl:DatatypeProperty ;
-            rdfs:domain :Jaguar ;
+        ont:hasLastSightingDate a owl:DatatypeProperty ;
+            rdfs:domain ont:Jaguar ;
             rdfs:range xsd:date ;
             rdfs:comment "Date of the last confirmed sighting of the individual jaguar.".
 
-        :wasKilled a owl:DatatypeProperty ;
-            rdfs:domain :Jaguar ;
+        ont:wasKilled a owl:DatatypeProperty ;
+            rdfs:domain ont:Jaguar ;
             rdfs:range xsd:boolean ;
             rdfs:comment "Indicates if the jaguar was killed.".
 
-        :causeOfDeath a owl:DatatypeProperty ;
-            rdfs:domain :Jaguar ;
+        ont:causeOfDeath a owl:DatatypeProperty ;
+            rdfs:domain ont:Jaguar ;
             rdfs:range xsd:string ;
             rdfs:comment "The cause of death for the jaguar.".
 
-        :originatesFrom a owl:ObjectProperty ;
-            rdfs:domain :Jaguar ;
-            rdfs:range :Location ;
+        ont:originatesFrom a owl:ObjectProperty ;
+            rdfs:domain ont:Jaguar ;
+            rdfs:range ont:Location ;
             rdfs:comment "Indicates the origin location of a dispersing jaguar.".
 
-        :hasOffspring a owl:ObjectProperty ;
-            rdfs:domain :Jaguar ;
-            rdfs:range :Jaguar ;
+        ont:hasOffspring a owl:ObjectProperty ;
+            rdfs:domain ont:Jaguar ;
+            rdfs:range ont:Jaguar ;
             rdfs:comment "Links a jaguar to its offspring.".
 
-        :isOrphaned a owl:DatatypeProperty ;
-            rdfs:domain :Jaguar ;
+        ont:isOrphaned a owl:DatatypeProperty ;
+            rdfs:domain ont:Jaguar ;
             rdfs:range xsd:boolean ;
             rdfs:comment "Indicates if the jaguar was orphaned.".
 
-        :isRehabilitated a owl:DatatypeProperty ;
-            rdfs:domain :Jaguar ;
+        ont:isRehabilitated a owl:DatatypeProperty ;
+            rdfs:domain ont:Jaguar ;
             rdfs:range xsd:boolean ;
             rdfs:comment "Indicates if the jaguar underwent rehabilitation.".
 
-        :isReleased a owl:DatatypeProperty ;
-            rdfs:domain :Jaguar ;
+        ont:isReleased a owl:DatatypeProperty ;
+            rdfs:domain ont:Jaguar ;
             rdfs:range xsd:boolean ;
             rdfs:comment "Indicates if the jaguar was released into the wild.".
 
-        :rescuedBy a owl:ObjectProperty ;
-            rdfs:domain :Jaguar ;
-            rdfs:range :ConservationOrganization ;
+        ont:rescuedBy a owl:ObjectProperty ;
+            rdfs:domain ont:Jaguar ;
+            rdfs:range ont:ConservationOrganization ;
             rdfs:comment "The organization that rescued the jaguar.".
 
-        :reintroducedBy a owl:ObjectProperty ;
-            rdfs:domain :Jaguar ;
-            rdfs:range :ConservationOrganization ;
+        ont:reintroducedBy a owl:ObjectProperty ;
+            rdfs:domain ont:Jaguar ;
+            rdfs:range ont:ConservationOrganization ;
             rdfs:comment "The organization that reintroduced the jaguar.".
 
-        :hasRescueDate a owl:DatatypeProperty ;
-            rdfs:domain :Jaguar ;
+        ont:hasRescueDate a owl:DatatypeProperty ;
+            rdfs:domain ont:Jaguar ;
             rdfs:range xsd:date ;
             rdfs:comment "Date of the jaguar's rescue.".
 
-        :hasReleaseDate a owl:DatatypeProperty ;
-            rdfs:domain :Jaguar ;
+        ont:hasReleaseDate a owl:DatatypeProperty ;
+            rdfs:domain ont:Jaguar ;
             rdfs:range xsd:date ;
             rdfs:comment "Date of the jaguar's release.".
 
-        :facesThreat a owl:ObjectProperty ;
-            rdfs:domain :Jaguar ;
-            rdfs:range :Threat ;
+        ont:facesThreat a owl:ObjectProperty ;
+            rdfs:domain ont:Jaguar ;
+            rdfs:range ont:Threat ;
             rdfs:comment "Indicates a threat faced by the jaguar.".
 
-        :implementsEffort a owl:ObjectProperty ;
-            rdfs:domain :ConservationOrganization ;
-            rdfs:range :ConservationEffort ;
+        ont:implementsEffort a owl:ObjectProperty ;
+            rdfs:domain ont:ConservationOrganization ;
+            rdfs:range ont:ConservationEffort ;
             rdfs:comment "Indicates a conservation effort implemented by an organization.".
 
-        :connectsHabitat a owl:ObjectProperty ;
-            rdfs:domain :WildlifeCorridor ;
-            rdfs:range :HabitatArea ;
+        ont:connectsHabitat a owl:ObjectProperty ;
+            rdfs:domain ont:WildlifeCorridor ;
+            rdfs:range ont:HabitatArea ;
             rdfs:comment "Indicates which habitat areas a wildlife corridor connects.".
 
-        :hasAcreage a owl:DatatypeProperty ;
-            rdfs:domain :HabitatArea ;
+        ont:hasAcreage a owl:DatatypeProperty ;
+            rdfs:domain ont:HabitatArea ;
             rdfs:range xsd:integer ;
             rdfs:comment "The size of the habitat area in acres.".
 
-        :hasPopulationEstimate a owl:DatatypeProperty ;
-            rdfs:domain :JaguarPopulation ;
+        ont:hasPopulationEstimate a owl:DatatypeProperty ;
+            rdfs:domain ont:JaguarPopulation ;
             rdfs:range xsd:integer ;
             rdfs:comment "Estimated number of jaguars in a population.".
 
-        :isDependentOn a owl:ObjectProperty ;
-            rdfs:domain :JaguarPopulation ;
-            rdfs:range :JaguarPopulation ;
+        ont:isDependentOn a owl:ObjectProperty ;
+            rdfs:domain ont:JaguarPopulation ;
+            rdfs:range ont:JaguarPopulation ;
             rdfs:comment "Indicates if one jaguar population is dependent on another (e.g., for dispersal).".
 
-        :namedBy a owl:ObjectProperty ;
-            rdfs:domain :Jaguar ;
-            rdfs:range :Person ;
+        ont:namedBy a owl:ObjectProperty ;
+            rdfs:domain ont:Jaguar ;
+            rdfs:range ont:Person ;
             rdfs:comment "The person or group who named the jaguar.".
-
+                
+                
         SPARQL Query Examples:
         - Find by [Name]:
+            @prefix ont: <http://example.org/ontology#>.
+            @prefix : <http://example.org/resource#>.
             SELECT ?jaguar ?label WHERE {
-            BIND(ex:[Name] AS ?jaguar)
+            BIND(:[Name] AS ?jaguar)
             OPTIONAL { ?jaguar rdfs:label ?label . }
             }
 
-        - Find all properties about [Name]:
+        - Find all properties about [Name]:            
+            @prefix ont: <http://example.org/ontology#>.
+            @prefix : <http://example.org/resource#>.
             SELECT ?jaguar ?p ?o WHERE {
-            BIND(ex:[Name] AS ?jaguar)
+            BIND(:[Name] AS ?jaguar)
             OPTIONAL { ?jaguar ?p ?o . }
             }
             
-        - Find by gender: 
-        SELECT ?jaguar ?label ?gender WHERE { ?jaguar a :Jaguar . OPTIONAL { ?jaguar rdfs:label ?label . } OPTIONAL { ?jaguar :hasGender ?gender . } }
+        - Find by gender:       
+        @prefix ont: <http://example.org/ontology#>.
+        @prefix : <http://example.org/resource#>.
+        SELECT ?jaguar ?label ?gender WHERE 
+        { ?jaguar a ont:Jaguar . 
+        OPTIONAL { ?jaguar rdfs:label ?label . } 
+        OPTIONAL { ?jaguar ont:hasGender ?gender . } }
         
-        - Find killed jaguars: 
-        SELECT ?jaguar ?label ?causeOfDeath WHERE { ?jaguar a :Jaguar . ?jaguar :wasKilled true . OPTIONAL { ?jaguar rdfs:label ?label . } OPTIONAL { ?jaguar :causeOfDeath ?causeOfDeath . } }
+        - Find killed jaguars:                 
+        @prefix ont: <http://example.org/ontology#>.
+        @prefix : <http://example.org/resource#>.
+        SELECT ?jaguar ?label ?causeOfDeath WHERE { 
+        ?jaguar a ont:Jaguar . 
+        ?jaguar ont:wasKilled true . 
+        OPTIONAL { ?jaguar rdfs:label ?label . } 
+        OPTIONAL { ?jaguar ont:causeOfDeath ?causeOfDeath . } }
         
         - Count jaguars: 
-        SELECT (COUNT(?jaguar) as ?count) WHERE { ?jaguar a :Jaguar . }
+        
+        @prefix ont: <http://example.org/ontology#>.
+        @prefix : <http://example.org/resource#>.
+        SELECT (COUNT(?jaguar) as ?count) WHERE { ?jaguar a ont:Jaguar . }
+        
         
         - Always try to make a simple query first and only add complexity if needed.
         - Always include relevant prefixes in the query.

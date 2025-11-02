@@ -1,5 +1,5 @@
-@prefix : <http://example.org/ontology#> .
-@prefix ex: <http://example.org/resource/> .
+@prefix ont: <http://example.org/ontology#> .
+@prefix : <http://example.org/resource#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
@@ -8,341 +8,341 @@
 # Locations & Habitat Areas
 #############################
 
-ex:USA a :Country ; rdfs:label "United States of America" .
-ex:Mexico a :Country ; rdfs:label "Mexico" .
-ex:Brazil a :Country ; rdfs:label "Brazil" .
-ex:Colombia a :Country ; rdfs:label "Colombia" .
-ex:Argentina a :Country ; rdfs:label "Argentina" .
-ex:Belize a :Country ; rdfs:label "Belize" .
+:USA a ont:Country ; rdfs:label "United States of America" .
+:Mexico a ont:Country ; rdfs:label "Mexico" .
+:Brazil a ont:Country ; rdfs:label "Brazil" .
+:Colombia a ont:Country ; rdfs:label "Colombia" .
+:Argentina a ont:Country ; rdfs:label "Argentina" .
+:Belize a ont:Country ; rdfs:label "Belize" .
 
-ex:Arizona a :State ; :locatedInCountry ex:USA ; rdfs:label "Arizona" .
-ex:Sonora a :State ; :locatedInCountry ex:Mexico ; rdfs:label "Sonora" .
+:Arizona a ont:State ; ont:locatedInCountry :USA ; rdfs:label "Arizona" .
+:Sonora a ont:State ; ont:locatedInCountry :Mexico ; rdfs:label "Sonora" .
 
-ex:WhetstoneMountains a :MountainRange ; rdfs:label "Whetstone Mountains" .
-ex:SantaRitaMountains a :MountainRange ; rdfs:label "Santa Rita Mountains" .
-ex:ChiricahuaMountains a :MountainRange ; rdfs:label "Chiricahua Mountains" .
-ex:HuachucaMountains a :MountainRange ; rdfs:label "Huachuca Mountains" .
-ex:DosCabezasMountains a :MountainRange ; rdfs:label "Dos Cabezas Mountains" .
+:WhetstoneMountains a ont:MountainRange ; rdfs:label "Whetstone Mountains" .
+:SantaRitaMountains a ont:MountainRange ; rdfs:label "Santa Rita Mountains" .
+:ChiricahuaMountains a ont:MountainRange ; rdfs:label "Chiricahua Mountains" .
+:HuachucaMountains a ont:MountainRange ; rdfs:label "Huachuca Mountains" .
+:DosCabezasMountains a ont:MountainRange ; rdfs:label "Dos Cabezas Mountains" .
 
-ex:LlanosRegion a :Region ; rdfs:label "Llanos (Colombia)" .
-ex:PantanalRegion a :Region ; rdfs:label "Pantanal (Brazil)" .
+:LlanosRegion a ont:Region ; rdfs:label "Llanos (Colombia)" .
+:PantanalRegion a ont:Region ; rdfs:label "Pantanal (Brazil)" .
 
 # Habitat areas used in corridors/reserves/wetlands
-ex:NorthernJaguarReserveArea a :HabitatArea ;
+:NorthernJaguarReserveArea a ont:HabitatArea ;
   rdfs:label "Northern Jaguar Reserve (Sonora)" ;
-  :hasAcreage 60300 .
+  ont:hasAcreage 60300 .
 
-ex:SkyIslandsBorderlands a :HabitatArea ;
+:SkyIslandsBorderlands a ont:HabitatArea ;
   rdfs:label "Arizona–Sonora Sky Islands borderlands" .
 
-ex:IberaWetlandsArea a :HabitatArea ;
+:IberaWetlandsArea a ont:HabitatArea ;
   rdfs:label "Iberá Wetlands (Argentina)" .
 
 #############################
 # Habitats (and where they are)
 #############################
 
-ex:PantanalWetland a :Wetland ; :locatedIn ex:PantanalRegion ; rdfs:label "Pantanal wetland habitat" .
-ex:IberaWetlandHabitat a :Wetland ; :locatedIn ex:IberaWetlandsArea ; rdfs:label "Iberá wetland habitat" .
-ex:SkyIslandsForest a :Forest ; :locatedIn ex:SkyIslandsBorderlands ; rdfs:label "Sky Islands montane forest" .
+:PantanalWetland a ont:Wetland ; ont:locatedIn :PantanalRegion ; rdfs:label "Pantanal wetland habitat" .
+:IberaWetlandHabitat a ont:Wetland ; ont:locatedIn :IberaWetlandsArea ; rdfs:label "Iberá wetland habitat" .
+:SkyIslandsForest a ont:Forest ; ont:locatedIn :SkyIslandsBorderlands ; rdfs:label "Sky Islands montane forest" .
 
 #############################
 # Monitoring Techniques (instances)
 #############################
 
-ex:techCameraTrap a :CameraTrap ; rdfs:label "Camera-trap monitoring" .
-ex:techGPSTrack a :GPSTracking ; rdfs:label "GPS/radio tracking" .
-ex:techScatDetect a :ScatDetection ; rdfs:label "Scat detection (dog-assisted)" .
+:techCameraTrap a ont:CameraTrap ; rdfs:label "Camera-trap monitoring" .
+:techGPSTrack a ont:GPSTracking ; rdfs:label "GPS/radio tracking" .
+:techScatDetect a ont:ScatDetection ; rdfs:label "Scat detection (dog-assisted)" .
 
 #############################
 # Organizations
 #############################
 
-ex:USFWS a :GovernmentAgency ; rdfs:label "U.S. Fish and Wildlife Service" .
-ex:AZGFD a :GovernmentAgency ; rdfs:label "Arizona Game and Fish Department" .
-ex:UArizona a :AcademicInstitution ; rdfs:label "University of Arizona" .
-ex:CenterForBiologicalDiversity a :NGO ; rdfs:label "Center for Biological Diversity" .
-ex:ConservationCATalyst a :NGO ; rdfs:label "Conservation CATalyst" .
-ex:WildlandsNetwork a :NGO ; rdfs:label "Wildlands Network" .
-ex:PROFAUNA a :NGO ; rdfs:label "Protección de la Fauna Mexicana (PROFAUNA)" .
-ex:NorthernJaguarProject a :NGO ; rdfs:label "Northern Jaguar Project" .
-ex:Naturalia a :NGO ; rdfs:label "Naturalia AC" .
-ex:WCS a :NGO ; rdfs:label "Wildlife Conservation Society" .
-ex:PantheraNGO a :NGO ; rdfs:label "Panthera" .
-ex:Oncafari a :NGO ; rdfs:label "Onçafari" .
-ex:NEX a :NGO ; rdfs:label "NEX No Extinction" .
+:USFWS a ont:GovernmentAgency ; rdfs:label "U.S. Fish and Wildlife Service" .
+:AZGFD a ont:GovernmentAgency ; rdfs:label "Arizona Game and Fish Department" .
+:UArizona a ont:AcademicInstitution ; rdfs:label "University of Arizona" .
+:CenterForBiologicalDiversity a ont:NGO ; rdfs:label "Center for Biological Diversity" .
+:ConservationCATalyst a ont:NGO ; rdfs:label "Conservation CATalyst" .
+:WildlandsNetwork a ont:NGO ; rdfs:label "Wildlands Network" .
+:PROFAUNA a ont:NGO ; rdfs:label "Protección de la Fauna Mexicana (PROFAUNA)" .
+:NorthernJaguarProject a ont:NGO ; rdfs:label "Northern Jaguar Project" .
+:Naturalia a ont:NGO ; rdfs:label "Naturalia AC" .
+:WCS a ont:NGO ; rdfs:label "Wildlife Conservation Society" .
+:PantheraNGO a ont:NGO ; rdfs:label "Panthera" .
+:Oncafari a ont:NGO ; rdfs:label "Onçafari" .
+:NEX a ont:NGO ; rdfs:label "NEX No Extinction" .
 
 #############################
 # Conservation Efforts & Legal
 #############################
 
-ex:USJaguarRecoveryPlan a :RecoveryPlan ;
+:USJaguarRecoveryPlan a ont:RecoveryPlan ;
   rdfs:label "US Jaguar Species Recovery Plan" .
 
-ex:WesternMX_AZ_Corridor a :WildlifeCorridor ;
+:WesternMX_AZ_Corridor a ont:WildlifeCorridor ;
   rdfs:label "Western Mexico–Arizona Jaguar Corridor" ;
-  :connectsHabitat ex:NorthernJaguarReserveArea, ex:SkyIslandsBorderlands .
+  ont:connectsHabitat :NorthernJaguarReserveArea, :SkyIslandsBorderlands .
 
-ex:OncafariRewilding a :RewildingProgram ;
+:OncafariRewilding a ont:RewildingProgram ;
   rdfs:label "Onçafari Jaguar Rewilding & Release Program" .
 
-ex:InternationalBorderlandsCoop a :InternationalCooperation ;
+:InternationalBorderlandsCoop a ont:InternationalCooperation ;
   rdfs:label "Borderlands Linkages Initiative cooperation" .
 
-ex:EndangeredSpeciesAct a :Act ;
+:EndangeredSpeciesAct a ont:Act ;
   rdfs:label "Endangered Species Act (United States)" .
 
 # Orgs implementing efforts
-ex:USFWS :implementsEffort ex:USJaguarRecoveryPlan .
-ex:WildlandsNetwork :implementsEffort ex:InternationalBorderlandsCoop .
-ex:PROFAUNA :implementsEffort ex:InternationalBorderlandsCoop .
-ex:NorthernJaguarProject :implementsEffort ex:InternationalBorderlandsCoop .
-ex:Oncafari :implementsEffort ex:OncafariRewilding .
+:USFWS ont:implementsEffort :USJaguarRecoveryPlan .
+:WildlandsNetwork ont:implementsEffort :InternationalBorderlandsCoop .
+:PROFAUNA ont:implementsEffort :InternationalBorderlandsCoop .
+:NorthernJaguarProject ont:implementsEffort :InternationalBorderlandsCoop .
+:Oncafari ont:implementsEffort :OncafariRewilding .
 
 #############################
 # Threats
 #############################
 
-ex:PoachingThreat a :Poaching ; rdfs:label "Poaching" .
-ex:HumanWildlifeConflictThreat a :HumanWildlifeConflict ; rdfs:label "Human–wildlife conflict" .
-ex:BorderBarrierThreat a :BorderBarrier ; rdfs:label "Border barrier / permeability" .
-ex:WildfireThreat a :Wildfire ; rdfs:label "Wildfire" .
-ex:ClimateChangeThreat a :ClimateChange ; rdfs:label "Climate change" .
-ex:IllegalWildlifeTradeThreat a :IllegalWildlifeTrade ; rdfs:label "Illegal wildlife trade" .
+:PoachingThreat a ont:Poaching ; rdfs:label "Poaching" .
+:HumanWildlifeConflictThreat a ont:HumanWildlifeConflict ; rdfs:label "Human–wildlife conflict" .
+:BorderBarrierThreat a ont:BorderBarrier ; rdfs:label "Border barrier / permeability" .
+:WildfireThreat a ont:Wildfire ; rdfs:label "Wildfire" .
+:ClimateChangeThreat a ont:ClimateChange ; rdfs:label "Climate change" .
+:IllegalWildlifeTradeThreat a ont:IllegalWildlifeTrade ; rdfs:label "Illegal wildlife trade" .
 
 #############################
 # People (observers/naming)
 #############################
 
-ex:DonnieFenn a :Person ; rdfs:label "Donnie Fenn" .
-ex:FelizardoValenciaStudents a :Person ; rdfs:label "Felizardo Valencia Middle School students" .
-ex:TohonoOodham_PY_Dine_Students a :Person ;
+:DonnieFenn a ont:Person ; rdfs:label "Donnie Fenn" .
+:FelizardoValenciaStudents a ont:Person ; rdfs:label "Felizardo Valencia Middle School students" .
+:TohonoOodham_PY_Dine_Students a ont:Person ;
   rdfs:label "Tohono O'odham, Pascua Yaqui & Diné schoolchildren" .
 
 #############################
 # Populations
 #############################
 
-ex:HuasabasSahuaripaPop a :JaguarPopulation ;
+:HuasabasSahuaripaPop a ont:JaguarPopulation ;
   rdfs:label "Huásabas–Sahuaripa jaguar population (Sonora)" .
 
-ex:HatoLaAuroraPop a :JaguarPopulation ;
+:HatoLaAuroraPop a ont:JaguarPopulation ;
   rdfs:label "Hato la Aurora jaguar population (Colombia Llanos)" ;
-  :isDependentOn ex:HuasabasSahuaripaPop .
+  ont:isDependentOn :HuasabasSahuaripaPop .
 
 #############################
 # Named Jaguars (Animals)
 #############################
 
 # El Jefe
-ex:ElJefe a :Jaguar ;
-  :scientificName "Panthera onca" ;
-  :hasGender "Male" ;
-  :hasDietType :CarnivoreDiet ;
-  :occursIn ex:Arizona, ex:WhetstoneMountains, ex:SantaRitaMountains, ex:Sonora ;
-  :originatesFrom ex:Sonora ;
-  :monitoredByTechnique ex:techCameraTrap, ex:techScatDetect ;
-  :monitoredByOrg ex:USFWS, ex:AZGFD, ex:UArizona, ex:ConservationCATalyst, ex:CenterForBiologicalDiversity, ex:NorthernJaguarProject, ex:PROFAUNA, ex:WildlandsNetwork ;
-  :facesThreat ex:HumanWildlifeConflictThreat, ex:BorderBarrierThreat .
+:ElJefe a ont:Jaguar ;
+  ont:scientificName "Panthera onca" ;
+  ont:hasGender "Male" ;
+  ont:hasDietType ont:CarnivoreDiet ;
+  ont:occursIn :Arizona, :WhetstoneMountains, :SantaRitaMountains, :Sonora ;
+  ont:originatesFrom :Sonora ;
+  ont:monitoredByTechnique :techCameraTrap, :techScatDetect ;
+  ont:monitoredByOrg :USFWS, :AZGFD, :UArizona, :ConservationCATalyst, :CenterForBiologicalDiversity, :NorthernJaguarProject, :PROFAUNA, :WildlandsNetwork ;
+  ont:facesThreat :HumanWildlifeConflictThreat, :BorderBarrierThreat .
 
 # Observations for El Jefe
-ex:Obs_ElJefe_2011 a :Observation ;
+:Obs_ElJefe_2011 a ont:Observation ;
   rdfs:label "El Jefe first recorded (Whetstone Mtns)" ;
-  :observedDate "2011-11-19"^^xsd:date ;
-  :observedBy ex:DonnieFenn .
-ex:ElJefe :hasObservation ex:Obs_ElJefe_2011 .
+  ont:observedDate "2011-11-19"^^xsd:date ;
+  ont:observedBy :DonnieFenn .
+:ElJefe ont:hasObservation :Obs_ElJefe_2011 .
 
-ex:Obs_ElJefe_2021_Sonora a :Observation ;
+:Obs_ElJefe_2021_Sonora a ont:Observation ;
   rdfs:label "El Jefe photographed (central Sonora)" ;
-  :observedDate "2021-11-27"^^xsd:date .
-ex:ElJefe :hasObservation ex:Obs_ElJefe_2021_Sonora .
+  ont:observedDate "2021-11-27"^^xsd:date .
+:ElJefe ont:hasObservation :Obs_ElJefe_2021_Sonora .
 
-ex:ElJefe :namedBy ex:FelizardoValenciaStudents .
+:ElJefe ont:namedBy :FelizardoValenciaStudents .
 
 # Macho B
-ex:MachoB a :Jaguar ;
-  :scientificName "Panthera onca" ;
-  :hasGender "Male" ;
-  :hasDietType :CarnivoreDiet ;
-  :occursIn ex:Arizona ;
-  :monitoredByTechnique ex:techGPSTrack ;
-  :monitoredByOrg ex:AZGFD, ex:USFWS ;
-  :wasKilled false ;
-  :causeOfDeath "Irreversible renal failure (euthanized in 2009 after recapture)" .
+:MachoB a ont:Jaguar ;
+  ont:scientificName "Panthera onca" ;
+  ont:hasGender "Male" ;
+  ont:hasDietType ont:CarnivoreDiet ;
+  ont:occursIn :Arizona ;
+  ont:monitoredByTechnique :techGPSTrack ;
+  ont:monitoredByOrg :AZGFD, :USFWS ;
+  ont:wasKilled false ;
+  ont:causeOfDeath "Irreversible renal failure (euthanized in 2009 after recapture)" .
 
 # Sombra
-ex:Sombra a :Jaguar ;
-  :scientificName "Panthera onca" ;
-  :hasGender "Male" ;
-  :hasDietType :CarnivoreDiet ;
-  :occursIn ex:DosCabezasMountains, ex:ChiricahuaMountains, ex:Arizona, ex:Sonora ;
-  :monitoredByTechnique ex:techCameraTrap, ex:techGPSTrack ;
-  :facesThreat ex:HumanWildlifeConflictThreat, ex:BorderBarrierThreat ;
-  :monitoredByOrg ex:USFWS, ex:AZGFD .
+:Sombra a ont:Jaguar ;
+  ont:scientificName "Panthera onca" ;
+  ont:hasGender "Male" ;
+  ont:hasDietType ont:CarnivoreDiet ;
+  ont:occursIn :DosCabezasMountains, :ChiricahuaMountains, :Arizona, :Sonora ;
+  ont:monitoredByTechnique :techCameraTrap, :techGPSTrack ;
+  ont:facesThreat :HumanWildlifeConflictThreat, :BorderBarrierThreat ;
+  ont:monitoredByOrg :USFWS, :AZGFD .
 
 # Yo'oko
-ex:YoOko a :Jaguar ;
+:YoOko a ont:Jaguar ;
   rdfs:label "Yo'oko" ;
-  :scientificName "Panthera onca" ;
-  :hasGender "Male" ;
-  :hasDietType :CarnivoreDiet ;
-  :occursIn ex:Arizona, ex:HuachucaMountains, ex:Sonora ;
-  :facesThreat ex:PoachingThreat, ex:IllegalWildlifeTradeThreat, ex:HumanWildlifeConflictThreat ;
-  :wasKilled true ;
-  :causeOfDeath "Poached in Sonora, Mexico (identified by rosette pattern from skinned pelt)" ;
-  :monitoredByTechnique ex:techCameraTrap ;
-  :monitoredByOrg ex:USFWS, ex:AZGFD, ex:NorthernJaguarProject .
+  ont:scientificName "Panthera onca" ;
+  ont:hasGender "Male" ;
+  ont:hasDietType ont:CarnivoreDiet ;
+  ont:occursIn :Arizona, :HuachucaMountains, :Sonora ;
+  ont:facesThreat :PoachingThreat, :IllegalWildlifeTradeThreat, :HumanWildlifeConflictThreat ;
+  ont:wasKilled true ;
+  ont:causeOfDeath "Poached in Sonora, Mexico (identified by rosette pattern from skinned pelt)" ;
+  ont:monitoredByTechnique :techCameraTrap ;
+  ont:monitoredByOrg :USFWS, :AZGFD, :NorthernJaguarProject .
 
 # Cochise
-ex:CochiseJaguar a :Jaguar ;
-  :scientificName "Panthera onca" ;
-  :hasGender "Male" ;
-  :hasDietType :CarnivoreDiet ;
-  :occursIn ex:HuachucaMountains, ex:Arizona ;
-  :monitoredByTechnique ex:techCameraTrap ;
-  :facesThreat ex:HumanWildlifeConflictThreat, ex:BorderBarrierThreat .
+:CochiseJaguar a ont:Jaguar ;
+  ont:scientificName "Panthera onca" ;
+  ont:hasGender "Male" ;
+  ont:hasDietType ont:CarnivoreDiet ;
+  ont:occursIn :HuachucaMountains, :Arizona ;
+  ont:monitoredByTechnique :techCameraTrap ;
+  ont:facesThreat :HumanWildlifeConflictThreat, :BorderBarrierThreat .
 
 # O:ṣhad Ñu:kudam
-ex:OshadNukudam a :Jaguar ;
+:OshadNukudam a ont:Jaguar ;
   rdfs:label "O:ṣhad Ñu:kudam" ;
-  :scientificName "Panthera onca" ;
-  :hasDietType :CarnivoreDiet ;
-  :occursIn ex:Arizona ;
-  :monitoredByTechnique ex:techCameraTrap ;
-  :facesThreat ex:HumanWildlifeConflictThreat, ex:BorderBarrierThreat ;
-  :namedBy ex:TohonoOodham_PY_Dine_Students .
+  ont:scientificName "Panthera onca" ;
+  ont:hasDietType ont:CarnivoreDiet ;
+  ont:occursIn :Arizona ;
+  ont:monitoredByTechnique :techCameraTrap ;
+  ont:facesThreat :HumanWildlifeConflictThreat, :BorderBarrierThreat ;
+  ont:namedBy :TohonoOodham_PY_Dine_Students .
 
 # Mariposa (Colombia)
-ex:Mariposa_CO a :Jaguar ;
-  :scientificName "Panthera onca" ;
-  :hasGender "Female" ;
-  :hasDietType :CarnivoreDiet ;
-  :occursIn ex:LlanosRegion, ex:Colombia ;
-  :facesThreat ex:HumanWildlifeConflictThreat ;
-  :monitoredByOrg ex:PantheraNGO ;
-  :habitat ex:SkyIslandsForest .
+:Mariposa_CO a ont:Jaguar ;
+  ont:scientificName "Panthera onca" ;
+  ont:hasGender "Female" ;
+  ont:hasDietType ont:CarnivoreDiet ;
+  ont:occursIn :LlanosRegion, :Colombia ;
+  ont:facesThreat :HumanWildlifeConflictThreat ;
+  ont:monitoredByOrg :PantheraNGO ;
+  ont:habitat :SkyIslandsForest .
 
 # Xamã (Brazil)
-ex:Xama_BR a :Jaguar ;
+:Xama_BR a ont:Jaguar ;
   rdfs:label "Xamã" ;
-  :scientificName "Panthera onca" ;
-  :hasGender "Male" ;
-  :hasDietType :CarnivoreDiet ;
-  :occursIn ex:PantanalRegion, ex:Brazil ;
-  :isOrphaned true ;
-  :isRehabilitated true ;
-  :isReleased true ;
-  :hasReleaseDate "2024-10-21"^^xsd:date ;
-  :reintroducedBy ex:Oncafari ;
-  :habitat ex:PantanalWetland ;
-  :facesThreat ex:WildfireThreat, ex:ClimateChangeThreat, ex:HumanWildlifeConflictThreat .
+  ont:scientificName "Panthera onca" ;
+  ont:hasGender "Male" ;
+  ont:hasDietType ont:CarnivoreDiet ;
+  ont:occursIn :PantanalRegion, :Brazil ;
+  ont:isOrphaned true ;
+  ont:isRehabilitated true ;
+  ont:isReleased true ;
+  ont:hasReleaseDate "2024-10-21"^^xsd:date ;
+  ont:reintroducedBy :Oncafari ;
+  ont:habitat :PantanalWetland ;
+  ont:facesThreat :WildfireThreat, :ClimateChangeThreat, :HumanWildlifeConflictThreat .
 
 # Isa & Fera (Brazil)
-ex:Isa_BR a :Jaguar ;
-  :scientificName "Panthera onca" ;
-  :hasGender "Female" ;
-  :hasDietType :CarnivoreDiet ;
-  :occursIn ex:PantanalRegion, ex:Brazil ;
-  :isOrphaned true ;
-  :isRehabilitated true ;
-  :isReleased true ;
-  :reintroducedBy ex:Oncafari ;
-  :habitat ex:PantanalWetland ;
-  :facesThreat ex:HumanWildlifeConflictThreat, ex:WildfireThreat .
+:Isa_BR a ont:Jaguar ;
+  ont:scientificName "Panthera onca" ;
+  ont:hasGender "Female" ;
+  ont:hasDietType ont:CarnivoreDiet ;
+  ont:occursIn :PantanalRegion, :Brazil ;
+  ont:isOrphaned true ;
+  ont:isRehabilitated true ;
+  ont:isReleased true ;
+  ont:reintroducedBy :Oncafari ;
+  ont:habitat :PantanalWetland ;
+  ont:facesThreat :HumanWildlifeConflictThreat, :WildfireThreat .
 
-ex:Fera_BR a :Jaguar ;
-  :scientificName "Panthera onca" ;
-  :hasGender "Female" ;
-  :hasDietType :CarnivoreDiet ;
-  :occursIn ex:PantanalRegion, ex:Brazil ;
-  :isOrphaned true ;
-  :isRehabilitated true ;
-  :isReleased true ;
-  :reintroducedBy ex:Oncafari ;
-  :habitat ex:PantanalWetland ;
-  :facesThreat ex:HumanWildlifeConflictThreat, ex:WildfireThreat .
+:Fera_BR a ont:Jaguar ;
+  ont:scientificName "Panthera onca" ;
+  ont:hasGender "Female" ;
+  ont:hasDietType ont:CarnivoreDiet ;
+  ont:occursIn :PantanalRegion, :Brazil ;
+  ont:isOrphaned true ;
+  ont:isRehabilitated true ;
+  ont:isReleased true ;
+  ont:reintroducedBy :Oncafari ;
+  ont:habitat :PantanalWetland ;
+  ont:facesThreat :HumanWildlifeConflictThreat, :WildfireThreat .
 
 # Amanaci (Brazil)
-ex:Amanaci_BR a :Jaguar ;
-  :scientificName "Panthera onca" ;
-  :hasGender "Female" ;
-  :hasDietType :CarnivoreDiet ;
-  :occursIn ex:PantanalRegion, ex:Brazil ;
-  :isRehabilitated true ;
-  :isReleased false ;
-  :habitat ex:PantanalWetland ;
-  :facesThreat ex:WildfireThreat, ex:ClimateChangeThreat ;
-  :monitoredByOrg ex:NEX, ex:Oncafari .
+:Amanaci_BR a ont:Jaguar ;
+  ont:scientificName "Panthera onca" ;
+  ont:hasGender "Female" ;
+  ont:hasDietType ont:CarnivoreDiet ;
+  ont:occursIn :PantanalRegion, :Brazil ;
+  ont:isRehabilitated true ;
+  ont:isReleased false ;
+  ont:habitat :PantanalWetland ;
+  ont:facesThreat :WildfireThreat, :ClimateChangeThreat ;
+  ont:monitoredByOrg :NEX, :Oncafari .
 
 # Ben, F11-9, Pixana (Belize/Brazil)
-ex:Ben_BZ a :Jaguar ;
-  :scientificName "Panthera onca" ;
-  :hasGender "Male" ;
-  :hasDietType :CarnivoreDiet ;
-  :occursIn ex:Belize ;
-  :monitoredByOrg ex:PantheraNGO ;
-  :facesThreat ex:HumanWildlifeConflictThreat .
+:Ben_BZ a ont:Jaguar ;
+  ont:scientificName "Panthera onca" ;
+  ont:hasGender "Male" ;
+  ont:hasDietType ont:CarnivoreDiet ;
+  ont:occursIn :Belize ;
+  ont:monitoredByOrg :PantheraNGO ;
+  ont:facesThreat :HumanWildlifeConflictThreat .
 
-ex:F11_9_BZ a :Jaguar ;
-  :scientificName "Panthera onca" ;
-  :hasGender "Female" ;
-  :hasDietType :CarnivoreDiet ;
-  :occursIn ex:Belize ;
-  :monitoredByOrg ex:PantheraNGO ;
-  :facesThreat ex:HumanWildlifeConflictThreat .
+:F11_9_BZ a ont:Jaguar ;
+  ont:scientificName "Panthera onca" ;
+  ont:hasGender "Female" ;
+  ont:hasDietType ont:CarnivoreDiet ;
+  ont:occursIn :Belize ;
+  ont:monitoredByOrg :PantheraNGO ;
+  ont:facesThreat :HumanWildlifeConflictThreat .
 
-ex:Pixana_BR a :Jaguar ;
-  :scientificName "Panthera onca" ;
-  :hasDietType :CarnivoreDiet ;
-  :occursIn ex:Brazil ;
-  :monitoredByOrg ex:PantheraNGO ;
-  :facesThreat ex:HumanWildlifeConflictThreat .
+:Pixana_BR a ont:Jaguar ;
+  ont:scientificName "Panthera onca" ;
+  ont:hasDietType ont:CarnivoreDiet ;
+  ont:occursIn :Brazil ;
+  ont:monitoredByOrg :PantheraNGO ;
+  ont:facesThreat :HumanWildlifeConflictThreat .
 
 # Levantina (Brazil, ecotourism habituation)
-ex:Levantina_BR a :Jaguar ;
-  :scientificName "Panthera onca" ;
-  :hasGender "Female" ;
-  :hasDietType :CarnivoreDiet ;
-  :occursIn ex:PantanalRegion, ex:Brazil ;
-  :habitat ex:PantanalWetland ;
-  :monitoredByOrg ex:Oncafari ;
-  :facesThreat ex:HumanWildlifeConflictThreat .
+:Levantina_BR a ont:Jaguar ;
+  ont:scientificName "Panthera onca" ;
+  ont:hasGender "Female" ;
+  ont:hasDietType ont:CarnivoreDiet ;
+  ont:occursIn :PantanalRegion, :Brazil ;
+  ont:habitat :PantanalWetland ;
+  ont:monitoredByOrg :Oncafari ;
+  ont:facesThreat :HumanWildlifeConflictThreat .
 
 # Mariua (Argentina, reintroduction success)
-ex:Mariua_AR a :Jaguar ;
-  :scientificName "Panthera onca" ;
-  :hasGender "Female" ;
-  :hasDietType :CarnivoreDiet ;
-  :occursIn ex:IberaWetlandsArea, ex:Argentina ;
-  :isRehabilitated true ;
-  :isReleased true ;
-  :reintroducedBy ex:Oncafari ;
-  :habitat ex:IberaWetlandHabitat .
+:Mariua_AR a ont:Jaguar ;
+  ont:scientificName "Panthera onca" ;
+  ont:hasGender "Female" ;
+  ont:hasDietType ont:CarnivoreDiet ;
+  ont:occursIn :IberaWetlandsArea, :Argentina ;
+  ont:isRehabilitated true ;
+  ont:isReleased true ;
+  ont:reintroducedBy :Oncafari ;
+  ont:habitat :IberaWetlandHabitat .
 
 #############################
 # Generic Jaguar/Animal-level facts
 #############################
 
 # Tie exemplar populations to areas/corridors
-ex:HuasabasSahuaripaPop :occursIn ex:Sonora .
-ex:HatoLaAuroraPop :occursIn ex:LlanosRegion .
+:HuasabasSahuaripaPop ont:occursIn :Sonora .
+:HatoLaAuroraPop ont:occursIn :LlanosRegion .
 
 # Organizations monitoring individual animals (already attached where relevant)
 # Recovery plan & legal protection context
-ex:ElJefe :facesThreat ex:BorderBarrierThreat .
-ex:MachoB :facesThreat ex:HumanWildlifeConflictThreat .
-ex:YoOko :facesThreat ex:IllegalWildlifeTradeThreat .
+:ElJefe ont:facesThreat :BorderBarrierThreat .
+:MachoB ont:facesThreat :HumanWildlifeConflictThreat .
+:YoOko ont:facesThreat :IllegalWildlifeTradeThreat .
 
 # Example association of recovery plan to critical area
-ex:USJaguarRecoveryPlan rdfs:comment "Includes critical habitat designation in AZ Sky Islands." .
+:USJaguarRecoveryPlan rdfs:comment "Includes critical habitat designation in AZ Sky Islands." .
 
 #############################
 # Validation notes (conformance)
 #############################
-# - All :hasObservation subjects are :Animal (here, :Jaguar) and objects are :Observation with :observedDate xsd:date and optional :observedBy :Person.
-# - All :occursIn link :Animal to :Location subclasses (Country/State/Region/MountainRange/HabitatArea).
-# - All :habitat link :Animal to :Habitat subclasses (Wetland/Forest).
-# - All :monitoredByTechnique link :Jaguar to instances of :MonitoringTechnique subclasses.
-# - All :monitoredByOrg link :Animal to :ConservationOrganization subclasses (GovernmentAgency/NGO/AcademicInstitution).
-# - All :facesThreat link :Jaguar to :Threat subclasses.
+# - All ont:hasObservation subjects are ont:Animal (here, ont:Jaguar) and objects are ont:Observation with ont:observedDate xsd:date and optional ont:observedBy ont:Person.
+# - All ont:occursIn link ont:Animal to ont:Location subclasses (Country/State/Region/MountainRange/HabitatArea).
+# - All ont:habitat link ont:Animal to ont:Habitat subclasses (Wetland/Forest).
+# - All ont:monitoredByTechnique link ont:Jaguar to instances of ont:MonitoringTechnique subclasses.
+# - All ont:monitoredByOrg link ont:Animal to ont:ConservationOrganization subclasses (GovernmentAgency/NGO/AcademicInstitution).
+# - All ont:facesThreat link ont:Jaguar to ont:Threat subclasses.
 # - All date-typed properties use full xsd:date where provided; ambiguous dates omitted to avoid invalid literals.

@@ -2,16 +2,28 @@
 
 ## Overview
 
-The Jaguar Conservation Agent is a **Graph RAG (Retrieval-Augmented Generation)** AI agent that combines **OpenAI GPT** with **GraphDB knowledge graphs** to provide intelligent responses about jaguar conservation. This agent demonstrates how to build a conversational AI using **Microsoft Agent Framework DevUI** that can query structured data using SPARQL and provide natural language responses.
+The Jaguar Conservation Agent is a **Semantic Graph RAG (Retrieval-Augmented Generation)** system that combines **OpenAI GPT** with **RDF knowledge graphs** to provide intelligent conservation insights. This system demonstrates:
 
-## Graph RAG Capabilities
+1. **Conversational AI** using **Microsoft Agent Framework DevUI** that queries knowledge graphs with SPARQL
+2. **Ontology-Aware Knowledge Extraction** that transforms unstructured text into structured RDF data
 
-### Core Graph RAG Features
+This is **true semantic Graph RAG** using formal ontologies (RDFS/OWL), not labeled property graphs (LPG). The system showcases why ontologies are essential for intelligent knowledge representation and extraction.
+
+## Dual Capabilities: Query & Extract
+
+### 1. Graph RAG Query Capabilities
 - **Knowledge Graph Integration**: Direct SPARQL queries against GraphDB triple store
 - **LLM-Driven Query Generation**: AI automatically generates SPARQL from natural language
 - **Hybrid Intelligence**: Combines structured graph data with LLM reasoning
 - **Real-time Data Retrieval**: Live queries against jaguar conservation database
 - **Context-Aware Responses**: Maintains conversation context across queries
+
+### 2. Ontology-Aware Knowledge Extraction
+- **Semantic Entity Disambiguation**: Distinguishes wildlife jaguars from cars and guitars
+- **Concept Understanding**: Uses formal ontologies to understand domain context
+- **Automated RDF Generation**: Creates valid Turtle syntax aligned with ontology
+- **Relationship Inference**: Discovers implicit connections between entities
+- **Zero Post-Processing**: Extracts clean, structured data without manual cleanup
 
 ### Agent Characteristics
 - **Name**: JaguarQueryAgent
@@ -291,6 +303,92 @@ response = asyncio.run(agent.run(
 print(response.text)
 ```
 
+## Ontology-Aware Knowledge Extraction
+
+### The "Jaguar Problem"
+
+The system includes a Jupyter notebook (`text2knowledge.ipynb`) that demonstrates **ontology-driven extraction**:
+
+**Challenge**: Extract jaguar conservation data from a corpus containing:
+- 🐆 Wildlife jaguars (Panthera onca)
+- 🚗 Jaguar cars (E-Type, XK-E)
+- 🎸 Fender Jaguar guitars
+
+**Solution**: By providing GPT-5 with the **jaguar conservation ontology**, the LLM:
+1. Understands the **domain context** from formal class definitions
+2. **Disambiguates entities** based on semantic structure
+3. **Extracts only wildlife-related information**
+4. **Generates RDF Turtle** aligned with the ontology
+5. **Infers relationships** between entities from context
+
+### Knowledge Extraction Process
+
+```
+1. Load Ontology (jaguar_ontology.ttl)
+   ↓
+2. Load Mixed-Content Corpus (jaguar_corpus.txt)
+   ↓
+3. GPT-5 Semantic Analysis
+   - Understands domain from ontology classes/properties
+   - Identifies relevant entities (wildlife jaguars only)
+   - Maps relationships to ontology structure
+   ↓
+4. Generate RDF Turtle
+   - Valid syntax
+   - Aligned with ontology
+   - Proper URIs and datatypes
+   ↓
+5. Import to GraphDB
+   - Use "Import → Text snippet"
+   - Data integrates seamlessly with existing graph
+```
+
+### Why Ontologies Are Essential
+
+**This CANNOT be done with LPG databases** because:
+
+❌ **No Formal Semantics**
+- LPG labels are just strings (`"Jaguar"`, `"OCCURS_IN"`)
+- No machine-readable domain definitions
+- LLM has no semantic guidance
+
+❌ **No Class Hierarchies**
+- No RDFS/OWL inheritance
+- No taxonomic structure
+- No reasoning capabilities
+
+❌ **No Property Constraints**
+- No domain/range definitions
+- No cardinality rules
+- No validation mechanisms
+
+✅ **RDF/Ontologies Provide**
+- Formal class definitions (`ont:Jaguar rdfs:subClassOf ont:Animal`)
+- Property semantics (`ont:hasGender rdfs:domain ont:Jaguar`)
+- Hierarchical structure for LLM understanding
+- Validation and reasoning capabilities
+- W3C standards for interoperability
+
+### Extraction Example
+
+**Input Corpus** (mixed content):
+```
+El Jefe is an adult, male jaguar that was seen in Arizona...
+The Jaguar E-Type is a British sports car manufactured by Jaguar Cars...
+The Fender Jaguar is an electric guitar characterized by...
+```
+
+**Output RDF** (wildlife only):
+```turtle
+:ElJefe a ont:Jaguar ;
+  rdfs:label "El Jefe" ;
+  ont:hasGender "Male" ;
+  ont:occursIn :Arizona ;
+  ont:monitoredByOrg :AZGFD .
+```
+
+No cars. No guitars. Just semantically relevant conservation data.
+
 ## Graph RAG Future Enhancements
 
 ### Advanced Graph RAG Features
@@ -298,6 +396,12 @@ print(response.text)
 2. **Temporal Queries**: Time-based conservation trend analysis
 3. **Geospatial Queries**: Location-based jaguar population mapping
 4. **Predictive Analytics**: Conservation outcome predictions
+
+### Knowledge Extraction Enhancements
+1. **Multi-Domain Ontologies**: Extract from diverse sources
+2. **Streaming Extraction**: Real-time knowledge mining
+3. **Active Learning**: Improve extraction with user feedback
+4. **Cross-Lingual Extraction**: Process multilingual corpora
 
 ### Knowledge Graph Enhancements
 1. **Dynamic Ontology Updates**: Real-time ontology evolution
