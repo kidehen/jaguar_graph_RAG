@@ -1,0 +1,212 @@
+## Turtle Start ##
+@prefix : <http://dbpedia.org/resource/> .
+@prefix dbo: <http://dbpedia.org/ontology/> .
+@prefix dbr: <http://dbpedia.org/resource/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+
+#############################
+# Ontology Classes          #
+#############################
+
+# General Taxonomy
+dbo:Animal a owl:Class.
+dbo:Mammal a owl:Class ; rdfs:subClassOf dbo:Animal.
+
+dbr:Big_cat a owl:Class ; rdfs:subClassOf dbo:Mammal.
+dbr:Jaguar a owl:Class ; rdfs:subClassOf dbr:Big_cat ;
+    rdfs:comment "The Panthera onca species mapped to DBpedia resource.".
+
+# Biological roles
+dbr:Prey a owl:Class ; rdfs:subClassOf dbo:Animal.
+dbr:Livestock a owl:Class ; rdfs:subClassOf dbr:Prey.
+dbr:Herbivore a owl:Class ; rdfs:subClassOf dbr:Prey.
+dbr:Mesopredator a owl:Class ; rdfs:subClassOf dbr:Prey.
+dbo:Fish a owl:Class ; rdfs:subClassOf dbr:Prey.
+dbo:Reptile a owl:Class ; rdfs:subClassOf dbr:Prey.
+
+dbr:Population a owl:Class ;
+    rdfs:label "Population" .
+
+# Habitats
+dbo:Place a owl:Class.
+dbo:Habitat a owl:Class ; rdfs:subClassOf dbo:Place.
+dbo:Forest a owl:Class ; rdfs:subClassOf dbo:Habitat.
+dbr:Rainforest a owl:Class ; rdfs:subClassOf dbo:Forest.
+dbr:Wetland a owl:Class ; rdfs:subClassOf dbo:Habitat.
+dbr:Grassland a owl:Class ; rdfs:subClassOf dbo:Habitat.
+dbr:Shrubland a owl:Class ; rdfs:subClassOf dbo:Habitat.
+dbo:BodyOfWater a owl:Class ; rdfs:subClassOf dbo:Habitat.
+
+# Locations
+dbo:Location a owl:Class.
+dbo:Country a owl:Class ; rdfs:subClassOf dbo:Location.
+dbo:AdministrativeRegion a owl:Class ; rdfs:subClassOf dbo:Location.
+dbo:Region a owl:Class ; rdfs:subClassOf dbo:Location.
+dbo:MountainRange a owl:Class ; rdfs:subClassOf dbo:Location.
+dbr:Habitat_conservation a owl:Class ; rdfs:subClassOf dbo:Location.
+
+# Diet
+dbo:Diet a owl:Class.
+dbr:Carnivore a dbo:Diet.
+
+# Actors/People
+dbo:Person a owl:Class.
+dbo:Scientist a owl:Class ; rdfs:subClassOf dbo:Person.
+dbr:Rancher a owl:Class ; rdfs:subClassOf dbo:Person.
+dbr:Conservationist a owl:Class ; rdfs:subClassOf dbo:Person.
+dbr:Indigenous_peoples a owl:Class ; rdfs:subClassOf dbo:Person.
+dbr:Tourist a owl:Class ; rdfs:subClassOf dbo:Person.
+dbr:Law_enforcement a owl:Class ; rdfs:subClassOf dbo:Person.
+
+# Organizations
+dbo:Organisation a owl:Class.
+dbo:GovernmentAgency a owl:Class ; rdfs:subClassOf dbo:Organisation.
+dbo:Non-GovernmentalOrganisation a owl:Class ; rdfs:subClassOf dbo:Organisation.
+dbo:EducationalInstitution a owl:Class ; rdfs:subClassOf dbo:Organisation.
+
+# Threats
+dbr:Threat a owl:Class.
+dbr:Human_impact_on_the_environment a owl:Class ; rdfs:subClassOf dbr:Threat.
+dbr:Habitat_destruction a owl:Class ; rdfs:subClassOf dbr:Human_impact_on_the_environment.
+dbr:Habitat_fragmentation a owl:Class ; rdfs:subClassOf dbr:Human_impact_on_the_environment.
+dbr:Poaching a owl:Class ; rdfs:subClassOf dbr:Human_impact_on_the_environment.
+dbr:Wildlife_trade a owl:Class ; rdfs:subClassOf dbr:Human_impact_on_the_environment.
+# Using full URI for special characters in local name
+<http://dbpedia.org/resource/Human–wildlife_conflict> a owl:Class ; rdfs:subClassOf dbr:Human_impact_on_the_environment.
+dbr:Border_barrier a owl:Class ; rdfs:subClassOf dbr:Human_impact_on_the_environment.
+dbr:Environmental_issue a owl:Class ; rdfs:subClassOf dbr:Threat.
+dbr:Climate_change a owl:Class ; rdfs:subClassOf dbr:Environmental_issue.
+dbr:Wildfire a owl:Class ; rdfs:subClassOf dbr:Environmental_issue.
+
+# Conservation Efforts
+dbr:Conservation_movement a owl:Class.
+dbr:Species_recovery_plan a owl:Class ; rdfs:subClassOf dbr:Conservation_movement.
+dbr:Wildlife_corridor a owl:Class ; rdfs:subClassOf dbr:Conservation_movement.
+# FIXED: Using full URI to handle parenthesis
+<http://dbpedia.org/resource/Rewilding_(conservation_biology)> a owl:Class ; rdfs:subClassOf dbr:Conservation_movement.
+dbr:Community_engagement a owl:Class ; rdfs:subClassOf dbr:Conservation_movement.
+dbr:International_cooperation a owl:Class ; rdfs:subClassOf dbr:Conservation_movement.
+
+# Monitoring
+dbr:Environmental_monitoring a owl:Class.
+dbr:Camera_trap a owl:Class ; rdfs:subClassOf dbr:Environmental_monitoring.
+dbr:Feces a owl:Class ; rdfs:subClassOf dbr:Environmental_monitoring.
+dbr:GPS_tracking_unit a owl:Class ; rdfs:subClassOf dbr:Environmental_monitoring.
+
+# Legal & Cultural
+dbr:Law a owl:Class.
+# FIXED: Using full URI to handle parenthesis
+<http://dbpedia.org/resource/Convention_(norm)> a owl:Class ; rdfs:subClassOf dbr:Law.
+dbr:Cultural_significance_of_jaguars a owl:Class. 
+
+dbo:Event a owl:Class.
+
+#############################
+# Ontology Properties       #
+#############################
+
+dbo:record a owl:ObjectProperty ;
+    rdfs:domain dbo:Animal ;
+    rdfs:range dbo:Event.
+
+dbo:date a owl:DatatypeProperty ;
+    rdfs:domain dbo:Event ;
+    rdfs:range xsd:date.
+
+dbo:relation a owl:ObjectProperty ;
+    rdfs:domain dbo:Event ;
+    rdfs:range dbo:Person.
+
+dbo:curator a owl:ObjectProperty ;
+    rdfs:domain dbo:Animal ;
+    rdfs:range dbo:Organisation.
+
+dbo:method a owl:ObjectProperty ;
+    rdfs:domain dbr:Jaguar ;
+    rdfs:range dbr:Environmental_monitoring.
+
+dbo:country a owl:ObjectProperty ;
+    rdfs:domain dbo:AdministrativeRegion ;
+    rdfs:range dbo:Country.
+
+dbo:location a owl:ObjectProperty ;
+    rdfs:domain dbo:Habitat ;
+    rdfs:range dbo:Place.
+
+dbo:habitat a owl:ObjectProperty ;
+    rdfs:domain dbo:Animal ;
+    rdfs:range dbo:Place.
+
+foaf:name a owl:DatatypeProperty ;
+    rdfs:domain dbo:Animal ;
+    rdfs:range xsd:string.
+
+dbo:diet a owl:ObjectProperty ;
+    rdfs:domain dbo:Animal ;
+    rdfs:range dbo:Diet.
+
+dbo:lifeExpectancy a owl:DatatypeProperty ;
+    rdfs:domain dbo:Animal ;
+    rdfs:range xsd:integer.
+
+dbo:scientificName a owl:DatatypeProperty ;
+    rdfs:domain dbo:Animal ;
+    rdfs:range xsd:string.
+
+dbo:sex a owl:ObjectProperty ;
+    rdfs:domain dbo:Animal ;
+    rdfs:range owl:Thing.
+
+dbo:individualisedPunt a owl:DatatypeProperty ;
+    rdfs:domain dbr:Jaguar ;
+    rdfs:range xsd:string.
+
+dbo:activeYearsStartYear a owl:DatatypeProperty ;
+    rdfs:domain dbr:Jaguar ;
+    rdfs:range xsd:date.
+
+dbo:deathCause a owl:DatatypeProperty ;
+    rdfs:domain dbr:Jaguar ;
+    rdfs:range xsd:string.
+
+dbo:origin a owl:ObjectProperty ;
+    rdfs:domain dbr:Jaguar ;
+    rdfs:range dbo:Place.
+
+dbo:child a owl:ObjectProperty ;
+    rdfs:domain dbr:Jaguar ;
+    rdfs:range dbr:Jaguar.
+
+dbo:threat a owl:ObjectProperty ;
+    rdfs:domain dbr:Jaguar ;
+    rdfs:range dbr:Threat.
+
+dbo:populationTotal a owl:DatatypeProperty ;
+    rdfs:domain dbr:Population ;
+    rdfs:range xsd:integer.
+
+dbo:area a owl:DatatypeProperty ;
+    rdfs:domain dbr:Habitat_conservation ;
+    rdfs:range xsd:integer.
+
+#############################
+# Individuals               #
+#############################
+
+dbr:Mexico a dbo:Country ; rdfs:label "Mexico"@en .
+dbr:Sonora a dbo:AdministrativeRegion ; 
+    dbo:country dbr:Mexico ;
+    rdfs:label "Sonora"@en .
+
+# FIXED: Using full URI to handle parenthesis
+<http://dbpedia.org/resource/El_Jefe_(jaguar)> a dbr:Jaguar ;
+  dbo:scientificName "Panthera onca"@en ;
+  dbo:sex dbr:Male ;
+  dbo:diet dbr:Carnivore ;
+  dbo:origin dbr:Sonora ;
+  dbo:habitat dbr:Sierra_Madre_Occidental ;
+  rdfs:label "El Jefe"@en .
+## Turtle Stop ##
