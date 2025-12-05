@@ -1,17 +1,16 @@
-## Turtle Start ##
 @prefix : <#> .
+@prefix ont: <#> .
 @prefix dbo: <http://dbpedia.org/ontology/> .
 @prefix dbr: <http://dbpedia.org/resource/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix foaf: <http://xmlns.com/foaf/0.1/> .
 
 #############################
 # Locations & Habitat Areas
-# Mapped to dbr instances
 #############################
 
+# High confidence mappings to DBpedia Resources
 dbr:United_States a dbo:Country ; rdfs:label "United States of America"@en .
 dbr:Mexico a dbo:Country ; rdfs:label "Mexico"@en .
 dbr:Brazil a dbo:Country ; rdfs:label "Brazil"@en .
@@ -27,20 +26,24 @@ dbr:Sonora a dbo:AdministrativeRegion ;
     dbo:country dbr:Mexico ; 
     rdfs:label "Sonora"@en .
 
+# Mountain Ranges (High confidence)
 dbr:Whetstone_Mountains a dbo:MountainRange ; rdfs:label "Whetstone Mountains"@en .
 dbr:Santa_Rita_Mountains a dbo:MountainRange ; rdfs:label "Santa Rita Mountains"@en .
 dbr:Chiricahua_Mountains a dbo:MountainRange ; rdfs:label "Chiricahua Mountains"@en .
 dbr:Huachuca_Mountains a dbo:MountainRange ; rdfs:label "Huachuca Mountains"@en .
 dbr:Dos_Cabezas_Mountains a dbo:MountainRange ; rdfs:label "Dos Cabezas Mountains"@en .
 
+# Natural Regions (High confidence)
 dbr:Llanos a dbo:NaturalRegion ; rdfs:label "Llanos (Colombia)"@en .
 dbr:Pantanal a dbo:NaturalRegion ; rdfs:label "Pantanal (Brazil)"@en .
 
-# Habitat areas (Specific reserves often don't have DBRs, so we define local nodes typed as dbo:ProtectedArea)
+# Specific Habitat Areas 
+# (Kept local where specific boundaries/definitions might not match a generic DBpedia topic)
 :NorthernJaguarReserveArea a dbo:ProtectedArea ;
   rdfs:label "Northern Jaguar Reserve (Sonora)" ;
-  dbo:area 60300 . # acres
+  ont:hasAcreage 60300 .
 
+# Mapped to the closest high-confidence DBpedia resource
 dbr:Madrean_Sky_Islands a dbo:NaturalRegion ;
   rdfs:label "Arizona–Sonora Sky Islands borderlands" .
 
@@ -48,7 +51,7 @@ dbr:Madrean_Sky_Islands a dbo:NaturalRegion ;
   rdfs:label "Iberá Wetlands (Argentina)" .
 
 #############################
-# Habitats (and where they are)
+# Habitats (Local Instances linked to DBpedia Locations)
 #############################
 
 :PantanalWetland a dbr:Wetland ; 
@@ -65,17 +68,18 @@ dbr:Madrean_Sky_Islands a dbo:NaturalRegion ;
 
 #############################
 # Monitoring Techniques
-# Mapped to DBpedia resources used as instances
 #############################
 
-dbr:Camera_trap a dbr:Environmental_monitoring ; rdfs:label "Camera-trap monitoring" .
-dbr:GPS_tracking_unit a dbr:Environmental_monitoring ; rdfs:label "GPS/radio tracking" .
-dbr:Scat_detection_dog a dbr:Environmental_monitoring ; rdfs:label "Scat detection (dog-assisted)" .
+# Using DBpedia resources as instances for the techniques
+:techCameraTrap a dbr:Camera_trap ; rdfs:label "Camera-trap monitoring" .
+:techGPSTrack a dbr:GPS_tracking_unit ; rdfs:label "GPS/radio tracking" .
+:techScatDetect a dbr:Scat_detection_dog ; rdfs:label "Scat detection (dog-assisted)" .
 
 #############################
 # Organizations
 #############################
 
+# High confidence mappings
 dbr:United_States_Fish_and_Wildlife_Service a dbo:GovernmentAgency ; 
     rdfs:label "U.S. Fish and Wildlife Service"@en .
 
@@ -94,10 +98,11 @@ dbr:Wildlands_Network a dbo:Non-GovernmentalOrganisation ;
 dbr:Wildlife_Conservation_Society a dbo:Non-GovernmentalOrganisation ; 
     rdfs:label "Wildlife Conservation Society"@en .
 
-dbr:Panthera_Corporation a dbo:Non-GovernmentalOrganisation ; 
+# Panthera (organization) often redirects or has specific naming, ensuring valid IRI
+<http://dbpedia.org/resource/Panthera_(organization)> a dbo:Non-GovernmentalOrganisation ; 
     rdfs:label "Panthera"@en .
 
-# Local URIs for NGOs without distinct DBpedia Resources
+# Smaller/Local NGOs (Kept local to avoid incorrect linkage)
 :ConservationCATalyst a dbo:Non-GovernmentalOrganisation ; rdfs:label "Conservation CATalyst" .
 :PROFAUNA a dbo:Non-GovernmentalOrganisation ; rdfs:label "Protección de la Fauna Mexicana (PROFAUNA)" .
 :NorthernJaguarProject a dbo:Non-GovernmentalOrganisation ; rdfs:label "Northern Jaguar Project" .
@@ -109,14 +114,12 @@ dbr:Panthera_Corporation a dbo:Non-GovernmentalOrganisation ;
 # Conservation Efforts & Legal
 #############################
 
-# Recovery Plan (Mapped to general concept or specific resource if available)
 :USJaguarRecoveryPlan a dbr:Species_recovery_plan ;
-  rdfs:label "US Jaguar Species Recovery Plan" ;
-  rdfs:comment "Includes critical habitat designation in AZ Sky Islands." .
+  rdfs:label "US Jaguar Species Recovery Plan" .
 
 :WesternMX_AZ_Corridor a dbr:Wildlife_corridor ;
   rdfs:label "Western Mexico–Arizona Jaguar Corridor" ;
-  dbo:routeJunction :NorthernJaguarReserveArea, dbr:Madrean_Sky_Islands .
+  ont:connectsHabitat :NorthernJaguarReserveArea, dbr:Madrean_Sky_Islands .
 
 :OncafariRewilding a <http://dbpedia.org/resource/Rewilding_(conservation_biology)> ;
   rdfs:label "Onçafari Jaguar Rewilding & Release Program" .
@@ -124,26 +127,27 @@ dbr:Panthera_Corporation a dbo:Non-GovernmentalOrganisation ;
 :InternationalBorderlandsCoop a dbr:International_cooperation ;
   rdfs:label "Borderlands Linkages Initiative cooperation" .
 
+# High confidence mapping for the Act
 dbr:Endangered_Species_Act_of_1973 a dbo:Law ;
   rdfs:label "Endangered Species Act (United States)" .
 
-# Implementation
-dbr:United_States_Fish_and_Wildlife_Service dbo:product :USJaguarRecoveryPlan .
-dbr:Wildlands_Network dbo:product :InternationalBorderlandsCoop .
-:PROFAUNA dbo:product :InternationalBorderlandsCoop .
-:NorthernJaguarProject dbo:product :InternationalBorderlandsCoop .
-:Oncafari dbo:product :OncafariRewilding .
+# Implementation relations
+dbr:United_States_Fish_and_Wildlife_Service ont:implementsEffort :USJaguarRecoveryPlan .
+dbr:Wildlands_Network ont:implementsEffort :InternationalBorderlandsCoop .
+:PROFAUNA ont:implementsEffort :InternationalBorderlandsCoop .
+:NorthernJaguarProject ont:implementsEffort :InternationalBorderlandsCoop .
+:Oncafari ont:implementsEffort :OncafariRewilding .
 
 #############################
-# Threats
+# Threats (Mapped to DBpedia Concepts)
 #############################
 
-dbr:Poaching a dbr:Threat ; rdfs:label "Poaching"@en .
-<http://dbpedia.org/resource/Human–wildlife_conflict> a dbr:Threat ; rdfs:label "Human–wildlife conflict"@en .
-dbr:Border_barrier a dbr:Threat ; rdfs:label "Border barrier / permeability"@en .
-dbr:Wildfire a dbr:Threat ; rdfs:label "Wildfire"@en .
-dbr:Climate_change a dbr:Threat ; rdfs:label "Climate change"@en .
-dbr:Wildlife_trade a dbr:Threat ; rdfs:label "Illegal wildlife trade"@en .
+:PoachingThreat a dbr:Poaching ; rdfs:label "Poaching" .
+:HumanWildlifeConflictThreat a <http://dbpedia.org/resource/Human–wildlife_conflict> ; rdfs:label "Human–wildlife conflict" .
+:BorderBarrierThreat a dbr:Border_barrier ; rdfs:label "Border barrier / permeability" .
+:WildfireThreat a dbr:Wildfire ; rdfs:label "Wildfire" .
+:ClimateChangeThreat a dbr:Climate_change ; rdfs:label "Climate change" .
+:IllegalWildlifeTradeThreat a dbr:Wildlife_trade ; rdfs:label "Illegal wildlife trade" .
 
 #############################
 # People
@@ -165,199 +169,207 @@ dbr:Wildlife_trade a dbr:Threat ; rdfs:label "Illegal wildlife trade"@en .
 :HatoLaAuroraPop a dbr:Population ;
   rdfs:label "Hato la Aurora jaguar population (Colombia Llanos)" ;
   dbo:location dbr:Llanos ;
-  dbo:relation :HuasabasSahuaripaPop .
+  ont:isDependentOn :HuasabasSahuaripaPop .
 
 #############################
 # Named Jaguars (Animals)
 #############################
 
-# El Jefe (Mapped to actual DBpedia resource)
+# 1. El Jefe - High Confidence Mapping
 <http://dbpedia.org/resource/El_Jefe_(jaguar)> a dbr:Jaguar ;
   dbo:scientificName "Panthera onca"@en ;
   dbo:sex dbr:Male ;
-  dbo:diet dbr:Carnivore ;
+  # DBpedia lacks a precise 'dietType' property, keeping local for fidelity or using 'diet'
+  ont:hasDietType ont:CarnivoreDiet ;
   dbo:location dbr:Arizona, dbr:Whetstone_Mountains, dbr:Santa_Rita_Mountains, dbr:Sonora ;
   dbo:origin dbr:Sonora ;
-  dbo:method dbr:Camera_trap, dbr:Scat_detection_dog ;
-  dbo:curator dbr:United_States_Fish_and_Wildlife_Service, dbr:Arizona_Game_and_Fish_Department, dbr:University_of_Arizona, :ConservationCATalyst, dbr:Center_for_Biological_Diversity, :NorthernJaguarProject, :PROFAUNA, dbr:Wildlands_Network ;
-  dbo:threat <http://dbpedia.org/resource/Human–wildlife_conflict>, dbr:Border_barrier ;
-  dbo:creator :FelizardoValenciaStudents . # Named by
+  ont:monitoredByTechnique :techCameraTrap, :techScatDetect ;
+  ont:monitoredByOrg dbr:United_States_Fish_and_Wildlife_Service, dbr:Arizona_Game_and_Fish_Department, dbr:University_of_Arizona, :ConservationCATalyst, dbr:Center_for_Biological_Diversity, :NorthernJaguarProject, :PROFAUNA, dbr:Wildlands_Network ;
+  ont:facesThreat :HumanWildlifeConflictThreat, :BorderBarrierThreat ;
+  ont:namedBy :FelizardoValenciaStudents .
 
 # Observations for El Jefe (Using dbo:Event)
 :Obs_ElJefe_2011 a dbo:Event ;
   rdfs:label "El Jefe first recorded (Whetstone Mtns)" ;
   dbo:date "2011-11-19"^^xsd:date ;
-  dbo:participant :DonnieFenn .
+  ont:observedBy :DonnieFenn .
 
-<http://dbpedia.org/resource/El_Jefe_(jaguar)> dbo:record :Obs_ElJefe_2011 .
+<http://dbpedia.org/resource/El_Jefe_(jaguar)> ont:hasObservation :Obs_ElJefe_2011 .
 
 :Obs_ElJefe_2021_Sonora a dbo:Event ;
   rdfs:label "El Jefe photographed (central Sonora)" ;
   dbo:date "2021-11-27"^^xsd:date .
 
-<http://dbpedia.org/resource/El_Jefe_(jaguar)> dbo:record :Obs_ElJefe_2021_Sonora .
+<http://dbpedia.org/resource/El_Jefe_(jaguar)> ont:hasObservation :Obs_ElJefe_2021_Sonora .
 
 
-# Macho B (Mapped to actual DBpedia resource)
+# 2. Macho B - High Confidence Mapping
 <http://dbpedia.org/resource/Macho_B> a dbr:Jaguar ;
   dbo:scientificName "Panthera onca"@en ;
   dbo:sex dbr:Male ;
-  dbo:diet dbr:Carnivore ;
+  ont:hasDietType ont:CarnivoreDiet ;
   dbo:location dbr:Arizona ;
-  dbo:method dbr:GPS_tracking_unit ;
-  dbo:curator dbr:Arizona_Game_and_Fish_Department, dbr:United_States_Fish_and_Wildlife_Service ;
-  dbo:threat <http://dbpedia.org/resource/Human–wildlife_conflict> ;
+  ont:monitoredByTechnique :techGPSTrack ;
+  ont:monitoredByOrg dbr:Arizona_Game_and_Fish_Department, dbr:United_States_Fish_and_Wildlife_Service ;
+  ont:wasKilled false ;
   dbo:deathCause "Irreversible renal failure (euthanized in 2009 after recapture)" .
 
 
-# Sombra (Local instance typed as dbr:Jaguar)
+# 3. Sombra - Local IRI (No DBpedia entry)
 :Sombra a dbr:Jaguar ;
   dbo:scientificName "Panthera onca" ;
   dbo:sex dbr:Male ;
-  dbo:diet dbr:Carnivore ;
+  ont:hasDietType ont:CarnivoreDiet ;
   dbo:location dbr:Dos_Cabezas_Mountains, dbr:Chiricahua_Mountains, dbr:Arizona, dbr:Sonora ;
-  dbo:method dbr:Camera_trap, dbr:GPS_tracking_unit ;
-  dbo:threat <http://dbpedia.org/resource/Human–wildlife_conflict>, dbr:Border_barrier ;
-  dbo:curator dbr:United_States_Fish_and_Wildlife_Service, dbr:Arizona_Game_and_Fish_Department .
+  ont:monitoredByTechnique :techCameraTrap, :techGPSTrack ;
+  ont:facesThreat :HumanWildlifeConflictThreat, :BorderBarrierThreat ;
+  ont:monitoredByOrg dbr:United_States_Fish_and_Wildlife_Service, dbr:Arizona_Game_and_Fish_Department .
 
 
-# Yo'oko
+# 4. Yo'oko - Local IRI
 :YoOko a dbr:Jaguar ;
   rdfs:label "Yo'oko" ;
   dbo:scientificName "Panthera onca" ;
   dbo:sex dbr:Male ;
-  dbo:diet dbr:Carnivore ;
+  ont:hasDietType ont:CarnivoreDiet ;
   dbo:location dbr:Arizona, dbr:Huachuca_Mountains, dbr:Sonora ;
-  dbo:threat dbr:Poaching, dbr:Wildlife_trade, <http://dbpedia.org/resource/Human–wildlife_conflict> ;
-  dbo:status "Killed" ;
+  ont:facesThreat :PoachingThreat, :IllegalWildlifeTradeThreat, :HumanWildlifeConflictThreat ;
+  ont:wasKilled true ;
   dbo:deathCause "Poached in Sonora, Mexico (identified by rosette pattern from skinned pelt)" ;
-  dbo:method dbr:Camera_trap ;
-  dbo:curator dbr:United_States_Fish_and_Wildlife_Service, dbr:Arizona_Game_and_Fish_Department, :NorthernJaguarProject .
+  ont:monitoredByTechnique :techCameraTrap ;
+  ont:monitoredByOrg dbr:United_States_Fish_and_Wildlife_Service, dbr:Arizona_Game_and_Fish_Department, :NorthernJaguarProject .
 
 
-# Cochise
+# 5. Cochise - Local IRI
 :CochiseJaguar a dbr:Jaguar ;
   dbo:scientificName "Panthera onca" ;
   dbo:sex dbr:Male ;
-  dbo:diet dbr:Carnivore ;
+  ont:hasDietType ont:CarnivoreDiet ;
   dbo:location dbr:Huachuca_Mountains, dbr:Arizona ;
-  dbo:method dbr:Camera_trap ;
-  dbo:threat <http://dbpedia.org/resource/Human–wildlife_conflict>, dbr:Border_barrier .
+  ont:monitoredByTechnique :techCameraTrap ;
+  ont:facesThreat :HumanWildlifeConflictThreat, :BorderBarrierThreat .
 
 
-# O:ṣhad Ñu:kudam
+# 6. O:ṣhad Ñu:kudam - Local IRI
 :OshadNukudam a dbr:Jaguar ;
   rdfs:label "O:ṣhad Ñu:kudam" ;
   dbo:scientificName "Panthera onca" ;
-  dbo:diet dbr:Carnivore ;
+  ont:hasDietType ont:CarnivoreDiet ;
   dbo:location dbr:Arizona ;
-  dbo:method dbr:Camera_trap ;
-  dbo:threat <http://dbpedia.org/resource/Human–wildlife_conflict>, dbr:Border_barrier ;
-  dbo:creator :TohonoOodham_PY_Dine_Students .
+  ont:monitoredByTechnique :techCameraTrap ;
+  ont:facesThreat :HumanWildlifeConflictThreat, :BorderBarrierThreat ;
+  ont:namedBy :TohonoOodham_PY_Dine_Students .
 
 
-# Mariposa (Colombia)
+# 7. Mariposa - Local IRI
 :Mariposa_CO a dbr:Jaguar ;
   dbo:scientificName "Panthera onca" ;
   dbo:sex dbr:Female ;
-  dbo:diet dbr:Carnivore ;
+  ont:hasDietType ont:CarnivoreDiet ;
   dbo:location dbr:Llanos, dbr:Colombia ;
-  dbo:habitat :SkyIslandsForest ; # Preserving original link, though geographically unusual for Colombia
-  dbo:threat <http://dbpedia.org/resource/Human–wildlife_conflict> ;
-  dbo:curator dbr:Panthera_Corporation .
+  ont:facesThreat :HumanWildlifeConflictThreat ;
+  ont:monitoredByOrg <http://dbpedia.org/resource/Panthera_(organization)> ;
+  ont:habitat :SkyIslandsForest .
 
 
-# Xamã (Brazil)
+# 8. Xamã - Local IRI
 :Xama_BR a dbr:Jaguar ;
   rdfs:label "Xamã" ;
   dbo:scientificName "Panthera onca" ;
   dbo:sex dbr:Male ;
-  dbo:diet dbr:Carnivore ;
+  ont:hasDietType ont:CarnivoreDiet ;
   dbo:location dbr:Pantanal, dbr:Brazil ;
-  dbo:status "Rehabilitated", "Released" ;
-  dbo:date "2024-10-21"^^xsd:date ; # Release Date
-  dbo:agency :Oncafari ; # Reintroduced by
-  dbo:habitat :PantanalWetland ;
-  dbo:threat dbr:Wildfire, dbr:Climate_change, <http://dbpedia.org/resource/Human–wildlife_conflict> .
+  ont:isOrphaned true ;
+  ont:isRehabilitated true ;
+  ont:isReleased true ;
+  ont:hasReleaseDate "2024-10-21"^^xsd:date ;
+  ont:reintroducedBy :Oncafari ;
+  ont:habitat :PantanalWetland ;
+  ont:facesThreat :WildfireThreat, :ClimateChangeThreat, :HumanWildlifeConflictThreat .
 
 
-# Isa & Fera (Brazil)
+# 9. Isa & Fera - Local IRIs
 :Isa_BR a dbr:Jaguar ;
   dbo:scientificName "Panthera onca" ;
   dbo:sex dbr:Female ;
-  dbo:diet dbr:Carnivore ;
+  ont:hasDietType ont:CarnivoreDiet ;
   dbo:location dbr:Pantanal, dbr:Brazil ;
-  dbo:status "Rehabilitated", "Released" ;
-  dbo:agency :Oncafari ;
-  dbo:habitat :PantanalWetland ;
-  dbo:threat <http://dbpedia.org/resource/Human–wildlife_conflict>, dbr:Wildfire .
+  ont:isOrphaned true ;
+  ont:isRehabilitated true ;
+  ont:isReleased true ;
+  ont:reintroducedBy :Oncafari ;
+  ont:habitat :PantanalWetland ;
+  ont:facesThreat :HumanWildlifeConflictThreat, :WildfireThreat .
 
 :Fera_BR a dbr:Jaguar ;
   dbo:scientificName "Panthera onca" ;
   dbo:sex dbr:Female ;
-  dbo:diet dbr:Carnivore ;
+  ont:hasDietType ont:CarnivoreDiet ;
   dbo:location dbr:Pantanal, dbr:Brazil ;
-  dbo:status "Rehabilitated", "Released" ;
-  dbo:agency :Oncafari ;
-  dbo:habitat :PantanalWetland ;
-  dbo:threat <http://dbpedia.org/resource/Human–wildlife_conflict>, dbr:Wildfire .
+  ont:isOrphaned true ;
+  ont:isRehabilitated true ;
+  ont:isReleased true ;
+  ont:reintroducedBy :Oncafari ;
+  ont:habitat :PantanalWetland ;
+  ont:facesThreat :HumanWildlifeConflictThreat, :WildfireThreat .
 
 
-# Amanaci (Brazil)
+# 10. Amanaci - Local IRI
 :Amanaci_BR a dbr:Jaguar ;
   dbo:scientificName "Panthera onca" ;
   dbo:sex dbr:Female ;
-  dbo:diet dbr:Carnivore ;
+  ont:hasDietType ont:CarnivoreDiet ;
   dbo:location dbr:Pantanal, dbr:Brazil ;
-  dbo:status "Rehabilitated" ; # Not released
-  dbo:habitat :PantanalWetland ;
-  dbo:threat dbr:Wildfire, dbr:Climate_change ;
-  dbo:curator :NEX, :Oncafari .
+  ont:isRehabilitated true ;
+  ont:isReleased false ;
+  ont:habitat :PantanalWetland ;
+  ont:facesThreat :WildfireThreat, :ClimateChangeThreat ;
+  ont:monitoredByOrg :NEX, :Oncafari .
 
 
-# Ben, F11-9, Pixana (Belize/Brazil)
+# 11. Belize/Brazil Group - Local IRIs
 :Ben_BZ a dbr:Jaguar ;
   dbo:scientificName "Panthera onca" ;
   dbo:sex dbr:Male ;
-  dbo:diet dbr:Carnivore ;
+  ont:hasDietType ont:CarnivoreDiet ;
   dbo:location dbr:Belize ;
-  dbo:curator dbr:Panthera_Corporation ;
-  dbo:threat <http://dbpedia.org/resource/Human–wildlife_conflict> .
+  ont:monitoredByOrg <http://dbpedia.org/resource/Panthera_(organization)> ;
+  ont:facesThreat :HumanWildlifeConflictThreat .
 
 :F11_9_BZ a dbr:Jaguar ;
   dbo:scientificName "Panthera onca" ;
   dbo:sex dbr:Female ;
-  dbo:diet dbr:Carnivore ;
+  ont:hasDietType ont:CarnivoreDiet ;
   dbo:location dbr:Belize ;
-  dbo:curator dbr:Panthera_Corporation ;
-  dbo:threat <http://dbpedia.org/resource/Human–wildlife_conflict> .
+  ont:monitoredByOrg <http://dbpedia.org/resource/Panthera_(organization)> ;
+  ont:facesThreat :HumanWildlifeConflictThreat .
 
 :Pixana_BR a dbr:Jaguar ;
   dbo:scientificName "Panthera onca" ;
-  dbo:diet dbr:Carnivore ;
+  ont:hasDietType ont:CarnivoreDiet ;
   dbo:location dbr:Brazil ;
-  dbo:curator dbr:Panthera_Corporation ;
-  dbo:threat <http://dbpedia.org/resource/Human–wildlife_conflict> .
+  ont:monitoredByOrg <http://dbpedia.org/resource/Panthera_(organization)> ;
+  ont:facesThreat :HumanWildlifeConflictThreat .
 
 
-# Levantina (Brazil)
+# 12. Levantina - Local IRI
 :Levantina_BR a dbr:Jaguar ;
   dbo:scientificName "Panthera onca" ;
   dbo:sex dbr:Female ;
-  dbo:diet dbr:Carnivore ;
+  ont:hasDietType ont:CarnivoreDiet ;
   dbo:location dbr:Pantanal, dbr:Brazil ;
-  dbo:habitat :PantanalWetland ;
-  dbo:curator :Oncafari ;
-  dbo:threat <http://dbpedia.org/resource/Human–wildlife_conflict> .
+  ont:habitat :PantanalWetland ;
+  ont:monitoredByOrg :Oncafari ;
+  ont:facesThreat :HumanWildlifeConflictThreat .
 
 
-# Mariua (Argentina)
+# 13. Mariua - Local IRI
 :Mariua_AR a dbr:Jaguar ;
   dbo:scientificName "Panthera onca" ;
   dbo:sex dbr:Female ;
-  dbo:diet dbr:Carnivore ;
+  ont:hasDietType ont:CarnivoreDiet ;
   dbo:location <http://dbpedia.org/resource/Iberá_Wetlands>, dbr:Argentina ;
-  dbo:status "Rehabilitated", "Released" ;
-  dbo:agency :Oncafari ;
-  dbo:habitat :IberaWetlandHabitat .
-## Turtle Stop ##
+  ont:isRehabilitated true ;
+  ont:isReleased true ;
+  ont:reintroducedBy :Oncafari ;
+  ont:habitat :IberaWetlandHabitat .
